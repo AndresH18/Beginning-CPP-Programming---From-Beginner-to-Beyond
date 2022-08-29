@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Account.cpp
+Account.h
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Account.h
+
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Account.h
+string
+-
+
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Deep_Copy.cpp
+Deep_Copy.h
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Deep_Copy.h
+iostream
+-
+
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Deep_Copy.h
+
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Player.cpp
+iostream
+-
+utility
+-
+Player.h
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Player.h
+
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Player.h
+string
+-
+
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/main.cpp
+iostream
+-
+vector
+-
+Account.h
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Account.h
+Player.h
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/Player.h
+

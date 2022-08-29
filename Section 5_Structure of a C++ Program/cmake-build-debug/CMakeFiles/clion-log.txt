@@ -1,0 +1,44 @@
+"C:\Program Files\JetBrains\CLion 2021.1.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - NMake Makefiles" "C:\Users\Andres\OneDrive - Universidad EIA\Documents\Programming\C++ Course\Beginning C++ Programming - From Beginner to Beyond\Section 5_Structure of a C++ Program"
+-- The C compiler identification is MSVC 19.29.30133.0
+-- The CXX compiler identification is MSVC 19.29.30133.0
+-- Detecting C compiler ABI info
+CMake Warning in C:/Users/Andres/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 5_Structure of a C++ Program/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeLists.txt:
+  The object file directory
+
+    C:/Users/Andres/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 5_Structure of a C++ Program/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_bf67f.dir/
+
+  has 229 characters.  The maximum full path to an object file is 250
+  characters (see CMAKE_OBJECT_PATH_MAX).  Object file
+
+    CMakeCCompilerABI.c.obj
+
+  cannot be safely placed under this directory.  The build may not work
+  correctly.
+
+
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx86/x86/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+CMake Warning in C:/Users/Andres/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 5_Structure of a C++ Program/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeLists.txt:
+  The object file directory
+
+    C:/Users/Andres/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 5_Structure of a C++ Program/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_3bcb9.dir/
+
+  has 229 characters.  The maximum full path to an object file is 250
+  characters (see CMAKE_OBJECT_PATH_MAX).  Object file
+
+    CMakeCXXCompilerABI.cpp.obj
+
+  cannot be safely placed under this directory.  The build may not work
+  correctly.
+
+
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx86/x86/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/Andres/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 5_Structure of a C++ Program/cmake-build-debug

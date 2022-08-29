@@ -1,0 +1,3 @@
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 11_Functions/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 11_Functions/cmake-build-debug/CMakeFiles/Section_11_Functions.dir
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 11_Functions/cmake-build-debug/CMakeFiles/edit_cache.dir

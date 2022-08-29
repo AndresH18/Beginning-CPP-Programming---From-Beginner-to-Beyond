@@ -1,0 +1,3 @@
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/cmake-build-debug/CMakeFiles/Section_13_Classes_and_Objects.dir
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/andre/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 13_Classes and Objects/cmake-build-debug/CMakeFiles/rebuild_cache.dir

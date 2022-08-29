@@ -1,0 +1,3 @@
+C:/Users/Andres/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 5_Structure of a C++ Program/cmake-build-debug/CMakeFiles/Section_5_Structure_of_a_C___Program.dir
+C:/Users/Andres/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 5_Structure of a C++ Program/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Andres/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 5_Structure of a C++ Program/cmake-build-debug/CMakeFiles/rebuild_cache.dir

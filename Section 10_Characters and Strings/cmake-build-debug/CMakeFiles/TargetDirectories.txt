@@ -1,0 +1,3 @@
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 10_Characters and Strings/cmake-build-debug/CMakeFiles/Section_10_Characters_and_Strings.dir
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 10_Characters and Strings/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 10_Characters and Strings/cmake-build-debug/CMakeFiles/rebuild_cache.dir

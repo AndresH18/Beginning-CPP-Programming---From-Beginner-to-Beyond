@@ -1,0 +1,3 @@
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 8_Statements and Operators/cmake-build-debug/CMakeFiles/Section_8_Statements_and_Operators.dir
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 8_Statements and Operators/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 8_Statements and Operators/cmake-build-debug/CMakeFiles/rebuild_cache.dir

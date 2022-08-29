@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 10_Characters and Strings/main.cpp
+iostream
+-
+cstring
+-
+cctype
+-
+

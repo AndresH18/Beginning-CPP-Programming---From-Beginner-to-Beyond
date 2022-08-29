@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Andres/OneDrive - Universidad EIA/Documents/Programming/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 12_Pointers and References/main.cpp
+iostream
+-
+vector
+-
+string
+-
+

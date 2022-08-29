@@ -1,0 +1,3 @@
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 6_Variable and Constants/cmake-build-debug/CMakeFiles/Section_6_Variable_and_Constants.dir
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 6_Variable and Constants/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/andre/Documents/C++ Course/Beginning C++ Programming - From Beginner to Beyond/Section 6_Variable and Constants/cmake-build-debug/CMakeFiles/rebuild_cache.dir
