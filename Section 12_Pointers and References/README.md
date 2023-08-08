@@ -245,8 +245,44 @@ By using `(score_ptr + 1)` we are adding 1 size of the pointer type. An int occu
 are moving 4 bytes forward. In the case of hte array, we are moving to the next item. This is called **Pointer
 Arithmetic**.
 
+### Equivalence Between Arrays and pointers
 
+Pointers of arrays can be used as if they were arrays themselves. This allows using the `[]` operator on pointers to
+access data of the array.
 
+```c++
+int array_name[] {1, 2, 3, 4, 5};
+int *pinter_name {array_name};
+```
+
+|  Subscript Notation   |      Offset Notation      | 
+|:---------------------:|:-------------------------:|
+|  `array_name[index]`  |  `*(array_name + index)`  |
+| `pointer_name[index]` | `*(pointer_name + index)` |
+
+## Pointer Arithmetic
+- Pointers can be used in
+  - Assignment expressions
+  - Arithmetic expressions
+  - Comparison expressions
+- c++ allows pointer arithmetic
+- Pointer arithmetic only makes sense with raw arrays
+
+### ++ and --
+(`++`) increments a pointer to point to the next array element  
+`ìnt_ptr++;`
+
+(`--`) decrements a pointer to point to the previous array element  
+`int_ptr--;`
+
+### + and -
+(`+`) increment pointer by `n * sizeof(type)`  
+`int_ptr += n;` or `int_ptr = int_ptr + n`
+
+(`-`)
+  
+> [!NOTE]
+> Hello
 
 
 
