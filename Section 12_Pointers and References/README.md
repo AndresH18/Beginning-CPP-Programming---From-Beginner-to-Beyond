@@ -261,14 +261,16 @@ int *pinter_name {array_name};
 | `pointer_name[index]` | `*(pointer_name + index)` |
 
 ## Pointer Arithmetic
+
 - Pointers can be used in
-  - Assignment expressions
-  - Arithmetic expressions
-  - Comparison expressions
+    - Assignment expressions
+    - Arithmetic expressions
+    - Comparison expressions
 - c++ allows pointer arithmetic
 - Pointer arithmetic only makes sense with raw arrays
 
 ### ++ and --
+
 (`++`) increments a pointer to point to the next array element  
 `ìnt_ptr++;`
 
@@ -276,24 +278,388 @@ int *pinter_name {array_name};
 `int_ptr--;`
 
 ### + and -
+
 (`+`) increment pointer by `n * sizeof(type)`  
-`int_ptr += n;` or `int_ptr = int_ptr + n`
+`int_ptr += n;` or `int_ptr = int_ptr + n;`
 
-(`-`)
-  
-> [!NOTE]
-> Hello
+(`-`) decrement pointer by `n * sizeof(type)`  
+`int_ptr -= n` or `int_ptr = int_ptr - n;`
 
+### Subtracting two pointers
 
+Determine the number of elements between pointers.  
+**Both pointers must point to the same data type**
 
+```c++
+int n = int_ptr2 - int_ptr1;
+```
 
+### Comparing two pointers
 
+Determine if two pointers point to the same location.  
+Does NOT compare the data where they point.
 
+```c++
+string s1 {"Andres"};
+string s2 {"Andres"};
 
+string *p1 {&s1};
+string *p2 {&s2};
+string *p3 {&s1};
 
+cout << (p1 == p2) << endl; // false
+cout << (p1 == p3) << endl; // true
 
+cout << (*p1 == *p2) << endl; // true
+cout << (*p1 == *p3) << endl; // true
+```
 
+## Const and Pointers
 
+`const` and pointers
 
+There are several ways to qualify pointers using `const`
 
+- [Pointers to constants](#pointers-to-constants)
+- [Constant pointers](#constant-pointers)
+- [Constan pointers to constants](#constant-pointers-to-constants)
 
+### Pointers to Constants
+
+The data pointed to by the pointers is constant and **cannot** be changed.  
+The pointer itself can change and point somewhere else.
+
+Its declare like `const variable_type *pointer_name`
+
+```c++
+int high_score {100};
+int low_score {65};
+
+const int *score_ptr {&high_score};
+
+*score_ptr = 68; // ERROR
+score_ptr = &low_score; // OK
+```
+
+The data cannot be change using the pointer.
+
+### Constant Pointers
+
+The data pointed to by the pointers can be changed.  
+The pointer itself **cannot** change and point somewhere else.
+
+Its declared like `variable_type *const pointer_name`
+
+```c++
+int high_score {100};
+int low_score {65};
+
+int *const score_ptr {&high_score};
+
+*score_ptr = 86; // OK
+score_ptr = &low_scorfe; // ERROR
+```
+
+The value at the memory address can change, but the pointer cannot point somewhere else.
+
+### Constant Pointers to Constants
+
+The data pointed to by the pointer is **constant** and cannot be changed.  
+The pointer itself **cannot change** and point somewhere else
+
+```c++
+int high_score {100};
+int low_score {65};
+
+const int *const score_ptr {&high_score};
+
+*score_ptr = 86; // ERROR
+score_ptr = &low_scorfe; // ERROR
+```
+
+## Passing pointers to a function
+
+Pass by reference with pointer parameters.  
+We can use pointers and the dereference operator to achieve pass by reference.  
+The function parameter is a pointer.  
+The actual parameter can be a pointer or address of a variable.
+
+```c++
+void double_data(int *int_ptr);
+
+void double_data(int *int_ptr) {
+    *int_ptr *= 2;
+}
+
+int main() {
+    int value {10};
+    
+    cout << value << endl; // 10
+    
+    double_data( &value ); 
+    
+    cout << value << endl; // 20
+    
+    int *int_ptr {&value};
+    
+    double_data(int_ptr);
+    
+    cout << value << endl; // 40
+}
+```
+
+## Returning a pointer from a Function
+
+Functions can also return pointers  
+`type *function();`.
+
+Should return pointers to:
+
+- Memory dynamically allocated in the function
+- To data that was passed in
+
+**Never return a pointer to a local variable!**
+
+```c++
+int *largest_int(int *int_ptr1, int *int_ptr2) {
+    if (*int_ptr1 > *int_ptr2)
+        return int_ptr1;
+    else 
+        return int_ptr2;
+}
+```
+
+Here, we returned pointers that were passed to the function so we know that the data exists and they are valid pointers.
+
+```c++
+int main() {
+    int a{100};
+    int b{200};
+    
+    int *largest_ptr = {nullptr};
+    largest_ptr = largest_int(&a, &b);
+    cout << *largest_ptr << endl; // 200
+}
+```
+
+### Returning dynamically allocated memory
+
+```c++
+int *create_array(size_t size, int init_value = 0) {
+    int *new_storage {nullptr};
+    new_storage = new int[size];
+    for (size_t i{0}; i < size; ++i) 
+        *(new_storage + i) = init_value;
+    return new_storage;
+}
+
+int main() {
+    int *my_array;
+    my_array = create_array(100, 20);
+    // use my_array
+    delete[] my_array; // be sure free the storage
+}
+```
+
+### Never return a pointer to a local variable!!!
+
+```c++
+int *dont_do_this() {
+    int size{};
+    // . . . 
+    return &size;
+}
+int *or_this() {
+    int size{};
+    int *int_ptr {&size};
+    // . . . 
+    return int_ptr;
+}
+```
+
+## Potential Pitfalls with Pointers
+
+### Uninitialized Pointers
+
+```c++
+int *ptr; // Pointing anywhere
+// . . .
+ptr = 100; // Hopefully a crash
+```
+
+### Dangling Pointers (Stray Pointers)
+
+- Pointer that is pointing to released memory.  
+  For example, 2 pointers point to the same data. One pointer released the data with delete. The other pointer
+  accesses the released data.
+
+- Pointer that points to memory that is invalid  
+  Like when you return a pointer to a function's local variable.
+
+### Not checking if new failed to allocate memory
+
+If new fails an exception is thrown.  
+We can use exception handling to catch the exceptions.  
+Dereferencing a null pointer will cause the program to crash.
+
+### Leaking Memory
+
+Forgetting to release allocated memory with delete.  
+If you lose your pointer to the storage allocated on the heap you
+have no way to get to the storage again.  
+The memory is orphaned or leaked.  
+One of most common pointer problems.
+
+## What is a Reference
+
+- An alias for a variable
+- Must be initialized to a variable when declared
+- Cannot be null
+- Once initialized cannot be made to refer to a different variable
+- Very useful as function parameters
+- Might be helpful to think of a reference as a constant pointer that is automatically dereference
+
+**Using references in range-based for loop**
+
+We can use references by using `&`. In range-based loops, we avoid the overhead of copying the collection-values to the
+variable
+
+```c++
+vector<string> stooges {"Larry", "Moe", "Curly"};
+
+for (auto str: stooges) // str is a COPY of each vector element
+    str = "Funny";      // changes the copy
+
+for (auto str: stooges)
+    cout << str << endl;    // Larry, Moe, Curly
+
+for (auto & str : stooges)  // str is a reference to each vector element
+    str = "Funny";          // changes the actual
+
+for (auto str: stooges)
+    cout << str << endl;    // Funny, Funny, Funny
+    
+for (auto const & str : stooges) // cannot alter via the reference
+    str = "Funny";          // compiler error
+```
+
+**Using references in code**
+
+```c++
+int number{100};
+int &ref{number};
+cout << number << endl; // 100
+cout << ref << endl;    // 100
+
+number = 200;
+cout << number << endl; // 200
+cout << ref << endl;    // 200
+
+ref = 300;
+cout << number << endl; // 300
+cout << ref << endl;    // 300
+```
+
+## L-values and R-values
+
+### L-values
+
+Values that have names and are addressable.  
+Modifiable if they are not constants.
+
+```c++
+int x {100};    // x is an l-value
+x = 1000;
+x = 1000 + 20;
+
+string name;    // name is an l-value
+name = "Andres";
+
+100 = x;        // 100 is NOT an l-value
+(100 + 20) = x; // (100 + 20) is not an l-value
+
+"Andres" = name;// "Andres" is NOT an l-value
+```
+
+### R-values
+
+Non-addressable and non-assignable.
+
+A value that's not an l-value.  
+On the right-hand side of an assignment expression  
+A literal  
+A temporary which is intended to be non-modifiable
+
+```c++
+int x{100};         // 100 is an r-value
+int y = x + 200;    // (x+200) is an r-value
+
+string name;
+name = "Andres";    // "Andres" is an r-value
+int max_num = max(20, 30); // max(20, 30) is an r-value 
+```
+
+R-Values can be assigned to L-Values explicitly
+
+```c++
+int x {100};
+int y{0};
+
+y = 100;    // r-value 100 is assigned to l-value y
+x = x + y;  // r-value (x + y) is assigned to l-value x
+```
+
+### L-Values References
+
+The references we've used are l-valued references, because we are referencing l-values.
+
+```c++
+int x {100};
+int &ref1 = x;      // ref1 is reference to l-value
+ref1 = 1000;
+
+int &ref2 = 100;    // Error, 100 is an r-value
+```
+
+The same when we pass-by-reference
+
+```c++
+int square(int &n) { // pass-by-reference
+    return n*n;
+}
+int num {10};
+square(num);     // OK
+square(5);       // Error, can't reference r-value 5
+```
+
+## Pointers vs References
+
+### Pass by value
+
+When the function does **not modify** the actual parameter and the parameter is *small and efficient to copy*, like
+simple types (int, char, double, etc.). Strings, vectors, arrays, objects have some overhead involved when they are
+copied.
+
+### Pass by reference using a pointer
+
+When the function does *modify the actual parameter*, and the parameter is *expensive to copy*, and it's *OK for the
+pointer to contain a `nullptr` value*
+
+#### Pass by reference using a [pointer to const](#pointers-to-constants)
+
+When the function does *not modify the actual parameter*, and the parameter is *expensive to copy*, and it's *OK for the
+pointer to contain a `nullptr` value*
+
+#### Pass by reference using a [const pointer to const](#constant-pointers-to-constants)
+
+When the function does *not modify the actual parameter*, and the parameter is *expensive to copy*, and it's *OK for
+the pointer to contain a `nullptr` value*, and *you don't want to modify the pointer itself*.
+
+### Pass by reference using a [reference](#what-is-a-reference)
+
+When the function *does modify* the actual parameter, and the parameter is *expensive to copy*, and the parameter will
+*NEVER be `nullptr`*.
+
+#### Pass by reference using a `const` reference
+When the function does *NOT modify* the actual parameter, and the parameter is *expensive to copy*, and the parameter will
+*NEVER be `nullptr`*.
