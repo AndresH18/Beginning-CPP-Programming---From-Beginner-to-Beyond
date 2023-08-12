@@ -892,7 +892,7 @@ Instead of making a deep copy, the **move constructor**:
 
 > [!NOTE]
 > When we create temporal objects (r-values), they will occupy storage. We use the move constructor to copy the
-> addresses of its resources in the heap and store them in the l-value object that will be created. Finally we set the
+> addresses of its resources in the heap and store them in the l-value object that will be created. Finally, we set the
 > pointers of the source to null to prevent the resources from being deleted.
 
 Syntax of Move constructor: `Type::Type(Type&& source);`
@@ -938,10 +938,71 @@ Move::Move(Move&& source) : data{source.data} // in the new instance, set data t
 > of the objects are 'moved'. 
 
 
+## This pointer
+- `this` is a reserved keyword
+- Contains the address of the object - so it's a pointer to the object
+- Can only be used in class scope
+- All member access is done via this pointer
+- Can be used by the programmer:
+  - To access data member and methods. *Names can be used, C++ uses `this` behind the scenes*.
+  - To determine if two objects are the same
+  - Can be dereferenced (`*this`) to yield the current object
 
+```c++
+void Account::set_balance(double bal) {
+    balance = bal;  // this->balance is implied
+}
+```
 
+To disambiguate identifier use:
+```c++
+void Account::set_balance(double balance) {
+    balance = balance;  // which balance? The parameter
+}
 
+void Account::set_balance(double balance) {
+    this->balance = balance;    // Unambiguous
+}
+```
 
+### Determine Object Identity
+Sometimes it's useful to know if two objects are the same object
+```c++
+int Account::compare_balance(const Account &other) {
+    if (this == &other)
+        std::cout << "The same objects" << endl;
+}
+```
+
+## Using `const` with Classes
+- Pass arguments to class member methods as `const`
+- We can also create `const` objects
+- What happens if we call member functions on const objects?
+- `const`-correctnes
+
+`villain is a const object, so it's attributes cannot change`
+```c++
+const Player villai {"Villain", 100, 55};
+
+villain.set_name("Nice guy");             // ERROR
+std:: << villain.get_name() << std::endl; // ERROR
+```
+> [!NOTE]
+> The compiler is assuming that `get_name` could modify the object, so it gives am error.
+
+We need to tell the compiler that the method `get_name` does not modify the object.
+```c++
+class Player{
+    private:
+    // . . . 
+    public:
+        std::string get_name() const;
+    // . . .
+};
+```
+Now we can use the method when the object is `const`.
+> [!IMPORTANT]
+> If we try to modify the object inside the `const` method, we will get an error.
 
 
 
