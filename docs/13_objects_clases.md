@@ -1004,12 +1004,143 @@ Now we can use the method when the object is `const`.
 > [!IMPORTANT]
 > If we try to modify the object inside the `const` method, we will get an error.
 
+## Static Class Members
+
+Class data members can be declared as static. A single data member belongs to that class, not the objects.  
+Useful to store class-wide information.
+
+Class functions can be declared as static. Independent of any object. Can be called using the class name.
+
+```c++
+class Player {
+    private:
+        static int num_players;
+    public:
+        static int get_num_players();
+        // . . .
+};
+```
+Typically in "Player.cpp".
+```c++
+#include "Player.h"
+
+int Player::num_players = 0; 
+
+int Player::get_num_players() {
+    return num_players;
+}
+
+Player(std::string name_val, int health_val, int ex_val) : // . . .
+        {
+            ++num_players;
+        }
+Player::~Player() {
+    --num_players;
+}
+```
+
+## Struct vs Classes
+In addition to define a `class`, we can define a `struct`. `struct` comes from the *C Programming language*.  
+Essentially the same as a class except *members are `public` by default*.
+
+```c++
+class Person {
+    std::string name;
+    std::string get_name();
+};
+
+Person p;
+p.name = "Andres";   // compiler error - private
+std::cout << p.get_name();  // compiler error - private
+```
+````c++
+struct Person {
+    std::string name;
+    std::string get_name();
+};
+
+Person p;
+p.name = "Andres";      // OK - public
+std::cout << p.get_name();  // OK - public
+````
+
+### Some General Guidelines
+- `struct`
+  - Use for passive objects with *public* access
+  - Don't declare methods inside
+- `class`
+  - Use for active objects with *private* access
+  - Implement *getters/setters* as needed
+  - Implement *member methods* as needed
 
 
+## Friends of a Class
+- Friend
+  - A function or class that has access to private class member and that function or class is **NOT** a member of the class it's accessing.
+- Function
+  - Can be regular non-member functions
+  - Can be member methods of another class
+- Class
+  - Another class can have access to private class members
 
+- Friendship must be granted, NOT taken
+  - Declared explicitly in the class that is granting friendship
+  - Declared in the function prototype with the keyword `friend`
+- Friendship is not symmetric
+  - Must be explicitly granted
+- Friendship is not transitive
+  - Must be explicitly granted
 
+### Non-Member function
+Non-class methods that have the same name and signature can access all information of the `Player` class
+Player.h
+```c++
+class Player {
+    friend void display_player(Player& p);
+    std::string name;
+    int health;
+    int xp;
+    public:
+    // . . .
+};
+```
+Somewhere else
+```c++
+void display_player(Player& p) {
+    std::cout << p.name << std::endl;
+    std::cout << p.health << std::endl;
+    std::cout << p.exp << std::endl;
+}
+```
+`display_player` may also change data members
 
+### Member function of Another Class
+The friend method can access all information of the `Player` class
+```c++
+class Player {
+    friend void Other_class::display_player(Player&p);
+    std::string name;
+    int health;
+    int xp;
+    public:
+    // . . .
+};
+```
 
+### Another Class as a Friend
+
+All the methods from the friend class have access to the player private attributes.
+
+```c++
+class Player {
+    friend class Other_class;
+    std::string name;
+    int health;
+    int xp;
+    public:
+    // . . .
+};
+```
 
 
 
