@@ -337,14 +337,7 @@ int main() {
      *      source.data = nullptr;
      * }
      *
-     * **ES MUY IMPORTANTE HACER QUE EL POINTER DE LOS DATOS DE SOURCE NULL
-     * VER LA CLASE MOVE
      */
-
-    for(int i{0}; i < 10; ++i) {
-
-    }
-
 
     return 0;
 
