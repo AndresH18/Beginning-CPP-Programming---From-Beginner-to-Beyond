@@ -1,6 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "google-explicit-constructor"
-#pragma ide diagnostic ignored "modernize-use-nodiscard"
 
 #ifndef SECTION_14_OPERATORS_OVERLOADING_MY_STRING_H
 #define SECTION_14_OPERATORS_OVERLOADING_MY_STRING_H
@@ -9,44 +6,51 @@ class MyString {
 private:
     char *str;  // pointer to a char[] that holds a C-style string
 public:
+    /**
+     * No args constructor
+     */
     MyString();
-    MyString(char *str);
-    MyString(const MyString& source);
+
+    /**
+     * Overloaded constructor
+     */
+    MyString(const char *str);
+
+    /**
+     * Copy constructor
+     */
+    MyString(const MyString &source);
+
+    /**
+     * Move constructor
+     */
+     MyString(MyString &&) ;
+    /** Destructor
+     */
     ~MyString();
 
+    /**
+     * Copy Assignment operator
+     */
+    MyString &operator=(const MyString &rhs);
+
+    /**
+     * Move Assignment Operator
+     */
+     MyString &operator=(MyString &&rhs);
+
+    /**
+     * == Operator
+     */
+     bool operator==(const MyString &rhs) const;
+     MyString operator+(const MyString &rhs) const;
+     MyString operator-() const;
+
     void display() const;
+
     int get_length() const;
+
     const char *get_str() const;
 };
 
-MyString::MyString() {
-
-}
-
-MyString::MyString(char *str) {
-
-}
-
-MyString::MyString(const MyString &source) {
-
-}
-
-MyString::~MyString() {
-
-}
-
-void MyString::display() const {
-
-}
-
-int MyString::get_length() const {
-    return 0;
-}
-
-const char *MyString::get_str() const {
-    return nullptr;
-}
-
 #endif
-#pragma clang diagnostic pop
-#pragma clang diagnostic pop
