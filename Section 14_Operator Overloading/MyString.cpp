@@ -80,7 +80,7 @@ MyString MyString::operator-() const {
 }
 
 MyString::~MyString() {
-    std::cout << "destructor called for " << (str == nullptr? "nullptr" : str) << "\n";;
+    std::cout << "destructor called for " << (str == nullptr || std::strlen(str) == 0? "nullptr" : str) << "\n";;
     delete[] str;
 }
 

@@ -189,6 +189,105 @@ Number n1 {100}, n2 {200};
 Number n3 = n1 + n2;    // n1.operator+(n2);
 n3 = n1 - n2;           // n1.operator-(n2);
 if (n1 == n2)           // n1.operator==(n2);
-    // . . . 
-
+    // . . .
 ```
+
+## Overloading Operators as Global Member Functions
+Since this are not member functions, we no longer have access to the `this` pointer to refer to the object. 
+So, since we often need access to private attributes in the objects, we tend to declare this functions as friends of the class.
+
+Member functions didn't need the caller as a parameter, but global functions need the caller as the first parameter.
+
+### Unary Operators as Global Functions
+```c++
+ReturnType operatorOP(Type &obj);
+
+Number operator-(const Number &obj);
+Number operator++(const Number &obj);    // pre-increment
+Number operator++(const Number &obj, int);    // post-increment
+booloperator!(const Number &obj);
+
+Number n1 {100};
+Number n2 = -n1;    // n1.operator-();
+n2 = ++n1;          // n1.operator++();
+n2 = n1++;          // n1.operator++(int);
+```
+
+### binary Operators as Global Functions
+
+```c++
+ReturnType operatorOP(const Type &lhs, const Type &rhs);
+
+Number operator+(const number &lhs, const Number &rhs);
+Number operator-(const number &lhs, const Number &rhs);
+bool operator==(const number &lhs, const Number &rhs);
+bool operator<(const number &lhs, const Number &rhs);
+```
+
+Let's make the `!=` using global members:
+```c++
+bool operator!=(const MyString &lhs, const MyString &rhs) {
+    return !(std::strcmp(lhs.str, rhs.str) == 0);
+}
+```
+If declared as a friend of `MyString`, it can access private the `str` attribute. Otherwise, we must use getters
+```c++
+class MyString {
+    friend bool operator!=(const MyString &lhs, const MyString &rhs);
+    // . . .
+};
+```
+
+> [!IMPORTANT]
+> Do not overload the same operator as a member function and global function. C++ will not know which to use
+
+## Stream Insertion and Extraction operators (>>, <<)
+```c++
+Player hero {"Hero", 100, 33};
+std::cout << hero << endl;  // {name: hero, health: 100, xp: 30}
+
+Player hero;
+cin >> hero;
+```
+
+Doesn't make sense to implement as member methods, because the left operand must be a user-defined class.
+
+We don't normally do this:
+```c++
+MyString andres;
+andres << cout; // huh?
+
+Player hero;
+hero >> cin;    // huh?
+```
+
+### Stream Insertion Operator <<
+
+```c++
+std::ostream &operator<<(std::ostream &os, const MyString &obj) {
+    os << obj.str;      // if friend function
+    // os << obj.get_str(); if not friend function
+    return os;
+}
+```
+Return a reference to the `ostream`, so we can keep inserting.  
+> [!WARNING]
+> Don't return `ostream` by value
+
+### Stream Extraction Operator >>
+```c++
+std::istream &operator>>(std::istream &is, MyString &obj) {
+    char *buff = new char[1000];
+    is >> buff;
+    obj = MyString{buff}; // If you have a copy or move assignment
+    delete[] buff;
+    return is;
+}
+```
+Update the object passed in.  
+Return a reference to the `istream` so we can keep inserting.  
+
+
+
+
+
