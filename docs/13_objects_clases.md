@@ -950,6 +950,7 @@ Instead of making a deep copy, the **move constructor**:
 > addresses of its resources in the heap and store them in the l-value object that will be created. Finally, we set the
 > pointers of the source to null to prevent the resources from being deleted.
 
+### Declaring the Move Constructor
 Syntax of Move constructor: `Type::Type(Type&& source);`
 
 ```c++
