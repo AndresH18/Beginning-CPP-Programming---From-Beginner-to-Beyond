@@ -43,6 +43,7 @@
     * [L-Value Reference Parameters](#l-value-reference-parameters)
     * [R-Value Reference Parameters](#r-value-reference-parameters)
     * [L-Value and R-Value Reference Parameters](#l-value-and-r-value-reference-parameters)
+    * [Declaring the Move Constructor](#declaring-the-move-constructor)
   * [This pointer](#this-pointer)
     * [Determine Object Identity](#determine-object-identity)
   * [Using `const` with Classes](#using-const-with-classes)
