@@ -1,59 +1,61 @@
 # Classes and Objects
 
 <!-- TOC -->
+
 * [Classes and Objects](#classes-and-objects)
-  * [Procedural Programming](#procedural-programming)
-    * [Procedural Programming - Limitations](#procedural-programming---limitations)
-  * [What is Object-Oriented Programming](#what-is-object-oriented-programming)
-  * [Limitations](#limitations)
-  * [Classes and objects](#classes-and-objects-1)
-  * [Declaring Classes and Creating Objects](#declaring-classes-and-creating-objects)
-    * [Declaring a class](#declaring-a-class)
-    * [Creating Objects](#creating-objects)
-  * [Accessing Class Members](#accessing-class-members)
-  * [Access Modifiers](#access-modifiers)
-  * [Implementing Member Methods](#implementing-member-methods)
-    * [Inside class Declaration](#inside-class-declaration)
-    * [Outside the class declaration](#outside-the-class-declaration)
-    * [Separating Specification from Implementation](#separating-specification-from-implementation)
-      * [Specification](#specification)
-        * [Include-Guards](#include-guards)
-      * [Implementation](#implementation)
-    * [Using Classes with separated declaration and implementation](#using-classes-with-separated-declaration-and-implementation)
-  * [Constructors and Destructors](#constructors-and-destructors)
-    * [Constructors](#constructors)
-    * [Destructors](#destructors)
-    * [Creating Objects](#creating-objects-1)
-  * [Default Constructor](#default-constructor)
-    * [No Default constructor](#no-default-constructor)
-  * [Overloading Constructors](#overloading-constructors)
-  * [Constructor Initialization Lists](#constructor-initialization-lists)
-  * [Delegating Constructors](#delegating-constructors)
-  * [Constructor Parameters and Default Values](#constructor-parameters-and-default-values)
-    * [Default constructor parameters](#default-constructor-parameters)
-  * [Copy Constructor](#copy-constructor)
-    * [Best practices](#best-practices)
-    * [Declaring the Copy constructor](#declaring-the-copy-constructor)
-    * [Implementing the Copy Constructor](#implementing-the-copy-constructor)
-  * [Shallow vs Deep Copying](#shallow-vs-deep-copying)
-    * [Shallow Copying](#shallow-copying)
-    * [Deep Copying](#deep-copying)
-  * [Move Constructor](#move-constructor)
-    * [R-Value References](#r-value-references)
-    * [L-Value Reference Parameters](#l-value-reference-parameters)
-    * [R-Value Reference Parameters](#r-value-reference-parameters)
-    * [L-Value and R-Value Reference Parameters](#l-value-and-r-value-reference-parameters)
-    * [Declaring the Move Constructor](#declaring-the-move-constructor)
-  * [This pointer](#this-pointer)
-    * [Determine Object Identity](#determine-object-identity)
-  * [Using `const` with Classes](#using-const-with-classes)
-  * [Static Class Members](#static-class-members)
-  * [Struct vs Classes](#struct-vs-classes)
-    * [Some General Guidelines](#some-general-guidelines)
-  * [Friends of a Class](#friends-of-a-class)
-    * [Non-Member function](#non-member-function)
-    * [Member function of Another Class](#member-function-of-another-class)
-    * [Another Class as a Friend](#another-class-as-a-friend)
+    * [Procedural Programming](#procedural-programming)
+        * [Procedural Programming - Limitations](#procedural-programming---limitations)
+    * [What is Object-Oriented Programming](#what-is-object-oriented-programming)
+    * [Limitations](#limitations)
+    * [Classes and objects](#classes-and-objects-1)
+    * [Declaring Classes and Creating Objects](#declaring-classes-and-creating-objects)
+        * [Declaring a class](#declaring-a-class)
+        * [Creating Objects](#creating-objects)
+    * [Accessing Class Members](#accessing-class-members)
+    * [Access Modifiers](#access-modifiers)
+    * [Implementing Member Methods](#implementing-member-methods)
+        * [Inside class Declaration](#inside-class-declaration)
+        * [Outside the class declaration](#outside-the-class-declaration)
+        * [Separating Specification from Implementation](#separating-specification-from-implementation)
+            * [Specification](#specification)
+                * [Include-Guards](#include-guards)
+            * [Implementation](#implementation)
+        * [Using Classes with separated declaration and implementation](#using-classes-with-separated-declaration-and-implementation)
+    * [Constructors and Destructors](#constructors-and-destructors)
+        * [Constructors](#constructors)
+        * [Destructors](#destructors)
+        * [Creating Objects](#creating-objects-1)
+    * [Default Constructor](#default-constructor)
+        * [No Default constructor](#no-default-constructor)
+    * [Overloading Constructors](#overloading-constructors)
+    * [Constructor Initialization Lists](#constructor-initialization-lists)
+    * [Delegating Constructors](#delegating-constructors)
+    * [Constructor Parameters and Default Values](#constructor-parameters-and-default-values)
+        * [Default constructor parameters](#default-constructor-parameters)
+    * [Copy Constructor](#copy-constructor)
+        * [Best practices](#best-practices)
+        * [Declaring the Copy constructor](#declaring-the-copy-constructor)
+        * [Implementing the Copy Constructor](#implementing-the-copy-constructor)
+    * [Shallow vs Deep Copying](#shallow-vs-deep-copying)
+        * [Shallow Copying](#shallow-copying)
+        * [Deep Copying](#deep-copying)
+    * [Move Constructor](#move-constructor)
+        * [R-Value References](#r-value-references)
+        * [L-Value Reference Parameters](#l-value-reference-parameters)
+        * [R-Value Reference Parameters](#r-value-reference-parameters)
+        * [L-Value and R-Value Reference Parameters](#l-value-and-r-value-reference-parameters)
+        * [Declaring the Move Constructor](#declaring-the-move-constructor)
+    * [This pointer](#this-pointer)
+        * [Determine Object Identity](#determine-object-identity)
+    * [Using `const` with Classes](#using-const-with-classes)
+    * [Static Class Members](#static-class-members)
+    * [Struct vs Classes](#struct-vs-classes)
+        * [Some General Guidelines](#some-general-guidelines)
+    * [Friends of a Class](#friends-of-a-class)
+        * [Non-Member function](#non-member-function)
+        * [Member function of Another Class](#member-function-of-another-class)
+        * [Another Class as a Friend](#another-class-as-a-friend)
+
 <!-- TOC -->
 
 **Object-Oriented Programming - Classes and Objects**
@@ -797,6 +799,12 @@ Account::Account(const Account &source) : name {source.name}, balance {source.ba
 > [!NOTE]
 > We can also use a delegating constructor `Type::Type(const Type &source) : Type {...}`.
 
+> [!IMPORTANT]
+> We must ensure that the way we are copying is the correct. using `: variable{vaule}` is useful only when dealing with
+> values. If we use pointers, we must implement deep copy, or use smart-pointers.
+> 
+> View [MyString](../Section%2014_Operator%20Overloading/MyString.cpp) to see its implementation.
+
 ## Shallow vs Deep Copying
 
 Consider a class that contains a pointer as a data member.  
@@ -952,6 +960,7 @@ Instead of making a deep copy, the **move constructor**:
 > pointers of the source to null to prevent the resources from being deleted.
 
 ### Declaring the Move Constructor
+
 Syntax of Move constructor: `Type::Type(Type&& source);`
 
 ```c++
@@ -992,18 +1001,18 @@ Move::Move(Move&& source) : data{source.data} // in the new instance, set data t
 > [!NOTE]
 > An example of how efficient and important this is, is with vectors. Since the grow and reduce size to accommodate the
 > values stores, they would need to copy the objects many times. By using the move constructor, the resources (pointers)
-> of the objects are 'moved'. 
-
+> of the objects are 'moved'.
 
 ## This pointer
+
 - `this` is a reserved keyword
 - Contains the address of the object - so it's a pointer to the object
 - Can only be used in class scope
 - All member access is done via this pointer
 - Can be used by the programmer:
-  - To access data member and methods. *Names can be used, C++ uses `this` behind the scenes*.
-  - To determine if two objects are the same
-  - Can be dereferenced (`*this`) to yield the current object
+    - To access data member and methods. *Names can be used, C++ uses `this` behind the scenes*.
+    - To determine if two objects are the same
+    - Can be dereferenced (`*this`) to yield the current object
 
 ```c++
 void Account::set_balance(double bal) {
@@ -1012,6 +1021,7 @@ void Account::set_balance(double bal) {
 ```
 
 To disambiguate identifier use:
+
 ```c++
 void Account::set_balance(double balance) {
     balance = balance;  // which balance? The parameter
@@ -1023,7 +1033,9 @@ void Account::set_balance(double balance) {
 ```
 
 ### Determine Object Identity
+
 Sometimes it's useful to know if two objects are the same object
+
 ```c++
 int Account::compare_balance(const Account &other) {
     if (this == &other)
@@ -1032,22 +1044,26 @@ int Account::compare_balance(const Account &other) {
 ```
 
 ## Using `const` with Classes
+
 - Pass arguments to class member methods as `const`
 - We can also create `const` objects
 - What happens if we call member functions on const objects?
 - `const`-correctnes
 
 `villain is a const object, so it's attributes cannot change`
+
 ```c++
 const Player villai {"Villain", 100, 55};
 
 villain.set_name("Nice guy");             // ERROR
 std:: << villain.get_name() << std::endl; // ERROR
 ```
+
 > [!NOTE]
 > The compiler is assuming that `get_name` could modify the object, so it gives am error.
 
 We need to tell the compiler that the method `get_name` does not modify the object.
+
 ```c++
 class Player{
     private:
@@ -1057,6 +1073,7 @@ class Player{
     // . . .
 };
 ```
+
 Now we can use the method when the object is `const`.
 > [!IMPORTANT]
 > If we try to modify the object inside the `const` method, we will get an error.
@@ -1077,7 +1094,9 @@ class Player {
         // . . .
 };
 ```
+
 Typically in "Player.cpp".
+
 ```c++
 #include "Player.h"
 
@@ -1097,6 +1116,7 @@ Player::~Player() {
 ```
 
 ## Struct vs Classes
+
 In addition to define a `class`, we can define a `struct`. `struct` comes from the *C Programming language*.  
 Essentially the same as a class except *members are `public` by default*.
 
@@ -1110,6 +1130,7 @@ Person p;
 p.name = "Andres";   // compiler error - private
 std::cout << p.get_name();  // compiler error - private
 ```
+
 ````c++
 struct Person {
     std::string name;
@@ -1122,35 +1143,39 @@ std::cout << p.get_name();  // OK - public
 ````
 
 ### Some General Guidelines
-- `struct`
-  - Use for passive objects with *public* access
-  - Don't declare methods inside
-- `class`
-  - Use for active objects with *private* access
-  - Implement *getters/setters* as needed
-  - Implement *member methods* as needed
 
+- `struct`
+    - Use for passive objects with *public* access
+    - Don't declare methods inside
+- `class`
+    - Use for active objects with *private* access
+    - Implement *getters/setters* as needed
+    - Implement *member methods* as needed
 
 ## Friends of a Class
+
 - Friend
-  - A function or class that has access to private class member and that function or class is **NOT** a member of the class it's accessing.
+    - A function or class that has access to private class member and that function or class is **NOT** a member of the
+      class it's accessing.
 - Function
-  - Can be regular non-member functions
-  - Can be member methods of another class
+    - Can be regular non-member functions
+    - Can be member methods of another class
 - Class
-  - Another class can have access to private class members
+    - Another class can have access to private class members
 
 - Friendship must be granted, NOT taken
-  - Declared explicitly in the class that is granting friendship
-  - Declared in the function prototype with the keyword `friend`
+    - Declared explicitly in the class that is granting friendship
+    - Declared in the function prototype with the keyword `friend`
 - Friendship is not symmetric
-  - Must be explicitly granted
+    - Must be explicitly granted
 - Friendship is not transitive
-  - Must be explicitly granted
+    - Must be explicitly granted
 
 ### Non-Member function
+
 Non-class methods that have the same name and signature can access all information of the `Player` class
 Player.h
+
 ```c++
 class Player {
     friend void display_player(Player& p);
@@ -1161,7 +1186,9 @@ class Player {
     // . . .
 };
 ```
+
 Somewhere else
+
 ```c++
 void display_player(Player& p) {
     std::cout << p.name << std::endl;
@@ -1169,10 +1196,13 @@ void display_player(Player& p) {
     std::cout << p.exp << std::endl;
 }
 ```
+
 `display_player` may also change data members
 
 ### Member function of Another Class
+
 The friend method can access all information of the `Player` class
+
 ```c++
 class Player {
     friend void Other_class::display_player(Player&p);

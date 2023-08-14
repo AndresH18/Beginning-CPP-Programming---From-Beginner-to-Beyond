@@ -8,7 +8,7 @@
 
 class Account {
 protected:
-    double amount{};
+    double* p_amount;
 public:
     Account();
 
@@ -32,6 +32,8 @@ public:
     double get_amount() const;
 
     void set_amount(double amount);
+
+
     /**
      * Copy assignment operator
      */
@@ -40,7 +42,7 @@ public:
     /**
      * Move assignment operator
      */
-     Account &operator=(const Account&& other);
+     Account &operator=(Account&& other);
 };
 
 
