@@ -87,14 +87,16 @@ class in terms of another. It's different from composition.
 > The `protected` modifier makes all public Base properties protected in the derived class.  
 > The `private` modifier makes all public and protected properties private in the derived class.
 
-
 ## Constructors and Destructors
+
 ### Constructors
+
 A derived class inherits from its base class.  
 The base part **must** be initialized __before__ the derived class is initialized.  
 When a derived object is created: The **Base** constructor executes first, then the **Derived* constructor
 
 ### Destructors
+
 Class destructor is invoked in _reversed_ order as constructors.  
 The _Derived_ part **must** be destroyed _before_ the Base destructor is invoked.
 
@@ -104,10 +106,12 @@ The _Derived_ part **must** be destroyed _before_ the Base destructor is invoked
 Each destructor should free resources allocated in its own constructors.
 
 > [!NOTE]
-> The Derived destructor should free resources from the '_derived_' part. The Base destructor handles the resources of the '_base_' part.
+> The Derived destructor should free resources from the '_derived_' part. The Base destructor handles the resources of
+> the '_base_' part.
 
 
 **A Derived class does _NOT_ inherit**:
+
 - Base class constructors
 - Base class destructor
 - Base class overloaded assignment operators
@@ -116,7 +120,127 @@ Each destructor should free resources allocated in its own constructors.
 However, the derived class constructors, destructors and overloaded assign operators can invoke the base-class versions.
 
 > [!NOTE]
-> C++11 allows explicit inheritance of base 'non-special' constructors with `using Base::Base`; anywhere in the derived class declaration.
-> 
+> C++11 allows explicit inheritance of base 'non-special' constructors with `using Base::Base`; anywhere in the derived
+> class declaration.
+>
 > Special case constructors would be **move constructor**, **copy constructor**
+
+## Passing Arguments to the Base Class Constructor
+
+The Base part of the Derived class must be initialized first.
+
+```c++
+class Account {
+private:
+    double amount;
+public:
+    Account(double amount) : amount{amount} {}
+};
+
+class SavingsAccount : public Account {
+private:
+    double rate;
+public:
+    SavingsAccount(double amount, double rate) 
+        : Account{amount}, // calling base constructor
+        rate{rate}
+};
+```
+
+## Copy and Move constructors and Overloaded Operator=
+
+**Not inherited from the Base class**.  
+You may not need to provide you own, The compiler versions may be just fine.  
+We can explicitly invoke the Base class versions from the Derived class.
+
+### Copy Constructor
+
+If we are going to copy a derived object, then we need to ensure that the Base part is also copied.
+
+Can invoke Base copy constructor explicitly. Derived object 'other' will be *sliced*
+
+```c++
+Derived::Derived(const Derived &other) : Base(other), {Derived initialization list} {
+    // code
+}
+```
+
+The following code is to understand this. In real life, this code is simple enough that the compiler generated
+*copy/move constructor* would be best.
+
+````c++
+class Base {
+    int value;
+public:
+    // same constructors as previous examples
+    Base(const Base &other) : value {other.value} {
+        std::cout << "Base copy constructor" << endl;
+    }
+};
+
+class Derived : public Base {
+    int doubled_value;
+public:
+    // same constructors as previous examples
+    
+    Derived(const Derived &other) : Base(other), double_value {other.double_value} {
+        std::cout << "Derived copy constructor" << endl;
+    }
+};
+````
+
+### Move constructor
+
+The move constructor works the same way as the [copy constructor](#copy-constructor).
+
+### Overloaded operator=
+
+#### Copy Assignment
+
+```c++
+class Base {
+    int value;
+public:
+    // same constructos as previous examples
+    
+    Base &operator=(const Base &rhs) {
+        if (this != &rhs) {
+            value = rhs.value;
+        }
+        retunr *this;
+    }
+};
+
+class Derived : public Base {
+    int doubled_value;
+public: 
+    // same constructos as previous example
+    Derived &operator=(const Derived &rhs) {
+        if (this != &rhs) {
+            Base::operator=(rhs); // assign Base part 
+            // since we work with references, the object is modified but the reference is not changed.
+            // Therefore, the rhs doesn't reference something else.
+            
+            doubled_value = rhs.doubled_value; // assign Derived part
+        }
+        return *this;
+    }
+};
+```
+
+#### Move Assignment
+
+Move assignment works the same way as with the [copy assignment](#copy-assignment).
+
+Often we don't need to provide our own [Copy](#copy-constructor)/[Move](#move-constructor)
+and [Overloaded Operator=](#overloaded-operator).
+
+If we **DO NOT** define them in _Derived_, the compiler will create them automatically and call the _Base_ class's
+version.
+
+If we **DO** provide _Derived_ versions, then **WE** must invoke the _Base_ versions explicitly
+
+> [!WARNING]
+> Be careful with *raw pointers*. Especially if Base and Derived each have *raw pointers*. Provide them with deep copy
+> semantics.
 

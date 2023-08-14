@@ -1,5 +1,22 @@
 # Operator Overloading
 
+<!-- TOC -->
+* [Operator Overloading](#operator-overloading)
+    * [Some Basic Rules](#some-basic-rules)
+  * [Assignment Operator](#assignment-operator)
+    * [Assignment - Copy](#assignment---copy)
+    * [Assignment - Move](#assignment---move)
+  * [Overloading Operators as Member Functions](#overloading-operators-as-member-functions)
+    * [Unary Operators](#unary-operators)
+    * [Binary operators](#binary-operators)
+  * [Overloading Operators as Global Member Functions](#overloading-operators-as-global-member-functions)
+    * [Unary Operators as Global Functions](#unary-operators-as-global-functions)
+    * [binary Operators as Global Functions](#binary-operators-as-global-functions)
+  * [Stream Insertion and Extraction operators (>>, <<)](#stream-insertion-and-extraction-operators--)
+    * [Stream Insertion Operator <<](#stream-insertion-operator-)
+    * [Stream Extraction Operator >>](#stream-extraction-operator-)
+<!-- TOC -->
+
 Using traditional operators (`+`, `=`, `*`, etc.) with used.  
 Allows user defined types to behave similar to built-in types.  
 Can make code more readable and writeable.  
@@ -48,9 +65,9 @@ View Class [MyString](../Section%2014_Operator%20Overloading/MyString.h)
 
 ## Assignment Operator
 
-### Assignment operator (`=`)
+Assignment operator (`=`)
 
-#### Assignment - Copy
+### Assignment - Copy
 
 C++ provides a default assignment operator used for assigning one object to another.
 
@@ -110,27 +127,32 @@ myString = "Some string";
 What happens is that we are creating a temporary variable of type `MyString` using the overloaded constructor (which
 receives a string). Then we assign it to `myString`.
 
+### Assignment - Move
 
-#### Assignment - Move
 You can choose to overload the move assignment operator. C++ will use the copy assignment if necessary.
+
 ```c++
 MyString s1;
 s1 = MyString{"Andres"}; // Move Assignment
 ```
+
 If we have raw pointer data, we should overload the move assignment operator for efficiency.
 
 Syntax for overloading Move Assignment operator: `Type &Type::operator=(Type && rhs);`
+
 ```c++
 MyString &MyString::operator=(MyString && rhs);
 
 s1 = MyString("Andres"); // move operator= called
 s1 = "David";            // move operator= called - implicit constructor
 ```
+
 Implementing in [MyString](../Section%2014_Operator%20Overloading/MyString.cpp)
 
-
 ## Overloading Operators as Member Functions
+
 ### Unary Operators
+
 Only interact with one argument.
 
 Unary operators (`++`, `--`, `-`, `!`)
@@ -150,6 +172,7 @@ n2 = n1++;          // n1.operator++(int);
 ```
 
 Example: we could have the `operator-()` return a lower case string
+
 ```c++
 MyString andres {"ANDRES"};
 MyString andres2;
@@ -173,6 +196,7 @@ MyString MyString::operator-() const {
 ```
 
 ### Binary operators
+
 Interact with two values.
 
 Binary Operators (`+`, `-`, `==`, `!=`, `<`, `>`, etc.)
@@ -193,12 +217,15 @@ if (n1 == n2)           // n1.operator==(n2);
 ```
 
 ## Overloading Operators as Global Member Functions
-Since this are not member functions, we no longer have access to the `this` pointer to refer to the object. 
-So, since we often need access to private attributes in the objects, we tend to declare this functions as friends of the class.
+
+Since this are not member functions, we no longer have access to the `this` pointer to refer to the object.
+So, since we often need access to private attributes in the objects, we tend to declare this functions as friends of the
+class.
 
 Member functions didn't need the caller as a parameter, but global functions need the caller as the first parameter.
 
 ### Unary Operators as Global Functions
+
 ```c++
 ReturnType operatorOP(Type &obj);
 
@@ -225,12 +252,15 @@ bool operator<(const number &lhs, const Number &rhs);
 ```
 
 Let's make the `!=` using global members:
+
 ```c++
 bool operator!=(const MyString &lhs, const MyString &rhs) {
     return !(std::strcmp(lhs.str, rhs.str) == 0);
 }
 ```
+
 If declared as a friend of `MyString`, it can access private the `str` attribute. Otherwise, we must use getters
+
 ```c++
 class MyString {
     friend bool operator!=(const MyString &lhs, const MyString &rhs);
@@ -242,6 +272,7 @@ class MyString {
 > Do not overload the same operator as a member function and global function. C++ will not know which to use
 
 ## Stream Insertion and Extraction operators (>>, <<)
+
 ```c++
 Player hero {"Hero", 100, 33};
 std::cout << hero << endl;  // {name: hero, health: 100, xp: 30}
@@ -253,6 +284,7 @@ cin >> hero;
 Doesn't make sense to implement as member methods, because the left operand must be a user-defined class.
 
 We don't normally do this:
+
 ```c++
 MyString andres;
 andres << cout; // huh?
@@ -270,11 +302,13 @@ std::ostream &operator<<(std::ostream &os, const MyString &obj) {
     return os;
 }
 ```
-Return a reference to the `ostream`, so we can keep inserting.  
+
+Return a reference to the `ostream`, so we can keep inserting.
 > [!WARNING]
 > Don't return `ostream` by value
 
 ### Stream Extraction Operator >>
+
 ```c++
 std::istream &operator>>(std::istream &is, MyString &obj) {
     char *buff = new char[1000];
@@ -284,6 +318,7 @@ std::istream &operator>>(std::istream &is, MyString &obj) {
     return is;
 }
 ```
+
 Update the object passed in.  
 Return a reference to the `istream` so we can keep inserting.  
 

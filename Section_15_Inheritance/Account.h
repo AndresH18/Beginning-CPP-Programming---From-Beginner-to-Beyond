@@ -12,15 +12,35 @@ protected:
 public:
     Account();
 
+    Account(double amount);
+
+    /**
+     * Copy constructor for Account
+     */
+    Account(const Account& account);
+    /**
+     * Move constructor for Account
+     */
+    Account(Account&& account);
+
     ~Account();
 
-    void withdraw(double amount);
+    virtual void withdraw(double amount);
 
-    void deposit(double amount);
+    virtual void deposit(double amount);
 
     double get_amount() const;
 
     void set_amount(double amount);
+    /**
+     * Copy assignment operator
+     */
+    Account &operator=(const Account& other);
+
+    /**
+     * Move assignment operator
+     */
+     Account &operator=(const Account&& other);
 };
 
 
