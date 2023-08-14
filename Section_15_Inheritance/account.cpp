@@ -7,30 +7,30 @@
 
 Account::Account() {
     std::cout << "(" << this << ")Account constructor ()" << std::endl;
-    p_amount = new double;
-    *p_amount = 0;
+    p_balance = new double;
+    *p_balance = 0;
 }
 
 Account::Account(double amount) : Account() {
     std::cout << "(" << this << ")Account constructor (double)" << std::endl;
-    *this->p_amount = amount;
+    *this->p_balance = amount;
 }
 
-Account::Account(const Account& account) : p_amount{nullptr} {
+Account::Account(const Account& account) : p_balance{nullptr} {
     std::cout << "(" << this << ")Account copy constructor (" << &account << ")" << std::endl;
-    p_amount = new double;
-    *p_amount = *account.p_amount;
+    p_balance = new double;
+    *p_balance = *account.p_balance;
 }
 
-Account::Account(Account&& account) : p_amount{account.p_amount} {
+Account::Account(Account&& account) : p_balance{account.p_balance} {
     std::cout << "(" << this << ")Account move constructor (" << &account << ")" << std::endl;
-    account.p_amount = nullptr;
+    account.p_balance = nullptr;
 }
 
 
 Account::~Account() {
     std::cout << "(" << this << ")Account Destructor" << std::endl;
-    delete p_amount;
+    delete p_balance;
 }
 
 void Account::deposit(double amount) {
@@ -41,12 +41,12 @@ void Account::withdraw(double amount) {
     std::cout << "(" << this << ")Account withdraw called with " << amount << std::endl;
 }
 
-double Account::get_amount() const {
-    return *p_amount;
+double Account::get_balance() const {
+    return *p_balance;
 }
 
-void Account::set_amount(double amount) {
-    *Account::p_amount = amount;
+void Account::set_balance(double amount) {
+    *Account::p_balance = amount;
 }
 
 Account& Account::operator=(const Account& other) {
@@ -54,11 +54,11 @@ Account& Account::operator=(const Account& other) {
     if (this == &other)
         return *this;
 
-    delete p_amount; // delete
+    delete p_balance; // delete
     // create new storage
-    p_amount = new double;
+    p_balance = new double;
     // copy value
-    *p_amount = *other.p_amount;
+    *p_balance = *other.p_balance;
 
     return *this;
 }
@@ -68,11 +68,11 @@ Account& Account::operator=(Account&& other) {
     if (this == &other)
         return *this;
     // delete storage
-    delete p_amount;
+    delete p_balance;
     // steal pointer
-    p_amount = other.p_amount;
+    p_balance = other.p_balance;
     // set other's pointer to nullptr
-    other.p_amount = nullptr;
+    other.p_balance = nullptr;
 
     return *this;
 }

@@ -244,3 +244,65 @@ If we **DO** provide _Derived_ versions, then **WE** must invoke the _Base_ vers
 > Be careful with *raw pointers*. Especially if Base and Derived each have *raw pointers*. Provide them with deep copy
 > semantics.
 
+## Redefining Base Class Methods
+
+Derived class can directly invoke Base class methods. Derived class can **override** or **redefine** Base class methods.
+
+```c++
+class Account {
+public:
+    void deposit(double amount) {balance += amount);}
+};
+
+class SavingsAccount : public Account {
+public:
+    void deposit(double amount) {// REDEFINE Base class method
+        amount += some_interest;
+        Account::deposit(amount); // INVOKE Bae class method
+    }
+};
+```
+
+### Static Binding of Method calls
+
+Binding of which method to use is done at compile time. Basically, the compiler determines which methods to call based
+on what it sees at compile time.
+
+- Default binding for C++ is static
+- Derived class objects will use `Derived::deposit`. But we can explicitly invoke `Base::deposit`
+  from `Derived::deposit`.
+
+```c++
+Base b;
+b.deposit(100);     // Base::deposit
+
+Derived d;
+d.deposit(100);     // Derived::deposit
+
+Base* ptr = new Derived();
+ptr->deposit(1000); // Base::deposit
+```
+
+By assigning a derived type to a base type variable, all method calls are to the Base implementation, **NOT** the
+Derived.
+
+
+## Multiple Inheritance
+- A derived class inherits from 2 or more Base classes at the same time.
+- The Bases classes may belong to unrelated class hierarchies.
+
+```c++
+class Department_Chair : public Faculty, public Administrator {
+    
+};
+```
+
+## Const Expressions `constexpr`
+Constants that are available only to the class.
+
+```c++
+class Account {
+    static constexpr const char* def_name = "Unnamed Account";
+};
+```
+

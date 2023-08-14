@@ -8,7 +8,8 @@
 
 class Account {
 protected:
-    double* p_amount;
+    double* p_balance;
+    std::string s_name;
 public:
     Account();
 
@@ -29,9 +30,9 @@ public:
 
     virtual void deposit(double amount);
 
-    double get_amount() const;
+    double get_balance() const;
 
-    void set_amount(double amount);
+    void set_balance(double amount);
 
 
     /**
