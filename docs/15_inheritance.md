@@ -88,8 +88,35 @@ class in terms of another. It's different from composition.
 > The `private` modifier makes all public and protected properties private in the derived class.
 
 
+## Constructors and Destructors
+### Constructors
+A derived class inherits from its base class.  
+The base part **must** be initialized __before__ the derived class is initialized.  
+When a derived object is created: The **Base** constructor executes first, then the **Derived* constructor
+
+### Destructors
+Class destructor is invoked in _reversed_ order as constructors.  
+The _Derived_ part **must** be destroyed _before_ the Base destructor is invoked.
+
+1. The Derived destructor is called
+2. Base destructor is called
+
+Each destructor should free resources allocated in its own constructors.
+
+> [!NOTE]
+> The Derived destructor should free resources from the '_derived_' part. The Base destructor handles the resources of the '_base_' part.
 
 
+**A Derived class does _NOT_ inherit**:
+- Base class constructors
+- Base class destructor
+- Base class overloaded assignment operators
+- Base class friend functions
 
+However, the derived class constructors, destructors and overloaded assign operators can invoke the base-class versions.
 
+> [!NOTE]
+> C++11 allows explicit inheritance of base 'non-special' constructors with `using Base::Base`; anywhere in the derived class declaration.
+> 
+> Special case constructors would be **move constructor**, **copy constructor**
 

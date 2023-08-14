@@ -7,12 +7,20 @@
 
 
 class Account {
+protected:
+    double amount{};
 public:
     Account();
+
     ~Account();
 
     void withdraw(double amount);
+
     void deposit(double amount);
+
+    double get_amount() const;
+
+    void set_amount(double amount);
 };
 
 

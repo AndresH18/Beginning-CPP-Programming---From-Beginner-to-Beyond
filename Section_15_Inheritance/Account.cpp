@@ -17,3 +17,13 @@ void Account::deposit(double amount) {
 void Account::withdraw(double amount) {
     std::cout << "Account withdraw called with " << amount << std::endl;
 }
+
+double Account::get_amount() const {
+    return amount;
+}
+
+void Account::set_amount(double amount) {
+    Account::amount = amount;
+}
+
+
