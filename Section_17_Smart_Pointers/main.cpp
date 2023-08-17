@@ -1,5 +1,7 @@
 #include <iostream>
+#include <memory>
 #include <vector>
+
 #include "Test.h"
 
 int main() {
@@ -12,10 +14,10 @@ int main() {
 
     std::unique_ptr<Test> ptr_ut3;
 //    ptr_ut3 = ptr_t1; // Error - cannot assign
-    std::cout << "ptr_ut1.get(): " << ptr_ut1 << std::endl;
+    std::cout << "ptr_ut1.get(): " << ptr_ut1.get() << std::endl;
     ptr_ut3 = std::move(ptr_ut1);
-    std::cout << "ptr_ut1.get(): " << ptr_ut1 << std::endl;
-    std::cout << "ptr_ut3.get(): " << ptr_ut3 << std::endl;
+    std::cout << "ptr_ut1.get(): " << ptr_ut1.get() << std::endl;
+    std::cout << "ptr_ut3.get(): " << ptr_ut3.get() << std::endl;
 
     std::vector<std::unique_ptr<Test>> tests;
     tests.push_back(std::make_unique<Test>(100));
@@ -24,7 +26,7 @@ int main() {
     tests.push_back(std::make_unique<Test>(400));
 
     for (const auto& test: tests) {
-        std::cout << "Test[" << test << "]: data=" << test->get_data() << std::endl;
+        std::cout << "Test[" << test.get() << "]: data=" << test->get_data() << std::endl;
 //        const Test* t = test.get();
 //        t->set_data(1);
         // when using smart pointers, 'const' prevents the pointer from being modified,

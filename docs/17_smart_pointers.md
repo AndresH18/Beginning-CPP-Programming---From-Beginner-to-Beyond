@@ -19,10 +19,14 @@ Ownership: Who owns the pointer?, When should a pointer be deleted?
   - Weak pointers (`weak_ptr`)
   - Auto pointers (`auto_ptr`) **DEPRECATED** 
 
-
+---
+## Required Header
+To use _Smart Pointers_ we must include the `<memory>` header.
 ```c++
 #include <memory>
 ```
+---
+
 
 Defined by class Templates
 - Wrapper around a raw pointer
@@ -58,7 +62,7 @@ Resource Acquisition
 - Acquire a lock
 
 Is Initialization
-- The resource is acuired in a constructor
+- The resource is acquired in a constructor
 
 Resource Relinquishing  
 Happens in the destructor
@@ -67,7 +71,7 @@ Happens in the destructor
 - Release the lock
 
 
-## Unique Pointer
+## Unique Pointer `unique_ptr<T>`
 
 ```c++
 unique_ptr
@@ -145,6 +149,19 @@ More efficient, no calls to `new` or `delete`
     auto p3 = make_unique<Player>("Hero", 100, 100);
 } // automatically deleted
 ```
+
+## Shared Pointers `shared_ptr<T>`
+
+Provides shared ownership of heap objects.
+
+- Points to an object of type `T` on the heap.
+- It is not unique - there can be many `shared_ptr`s pointing to the same object on the heap.
+- Establishes **shared ownership** *relationship*
+- _CAN_ be assigned and copied
+- _CAN_ be moved
+- Doesn't support managing arrays by default
+- When the use *count is zero*, the managed object on the heap is *destroyed*
+
 
 
 
