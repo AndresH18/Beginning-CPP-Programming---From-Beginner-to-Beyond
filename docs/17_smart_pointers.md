@@ -223,6 +223,54 @@ Provides shared ownership of heap objects.
 - All 3 pointers point to the SAME object on the heap.
 - When the `use_count` becomes 0 the heap object is deallocated
 
+## Weak Pointer `weak_ptr<T>`
+Provides a non-owning "weak" reference.
+- Points to an object of type `T` on the heap
+- Does not participate in owning relationships
+- Always created from a [`shared_ptr`](#shared-pointers-sharedptrt)
+- Does **NOT** increment or decrement reference `user_count`
+- Used to prevent strong reference cycles which could prevent objects from being deleted.
+
+### Circular or Cyclic References*  
+- A refers to B
+- B refers to A
+- Shared Strong ownership prevents heap de-allocation.
+
+Solution: Make one of the pointers non-owning or 'weak'. Now heap storage is deallocated properly
+
+
+## Custom Deleters
+Sometimes when we destroy a smart pointer we need more than to just destroy the object on the heap.  
+These are special use-cases.  
+C++ Smart pointers allow us to provide custom deleters, by using Functions, Lambdas, other...
+
+### Custom Deleters - Functions
+```c++
+void my_deleter(Some_class *raw_pointer) {
+    // you custom deleter code 
+    delete raw_pointer;
+}
+
+std::shared_ptr<Some_class> ptr {new Some_class{}, my_deleter};
+```
+
+Using _Test_
+```c++
+void my_deleter(Test* ptr) {
+    std::cout << "In my custom function deleter" << std::endl;
+    delete ptr;
+}
+
+std::shared_ptr<Test> ptr { new Test{}, my_deleter };
+```
+
+### Custom Deleters - Lambda
+```c++
+std::shared_ptr<Test> ptr (new Test{100}, [] (Test *ptr) {
+    std:.cout << "\tUsing my custom Lambda deleter"
+    delete ptr;
+})
+```
 
 
 

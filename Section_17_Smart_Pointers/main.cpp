@@ -4,6 +4,10 @@
 
 #include "Test.h"
 
+void weak_function(const std::weak_ptr<Test> ptr);
+
+void shared_function(const std::shared_ptr<Test> ptr);
+
 int main() {
     std::cout << "=== unique_ptr ===========================================" << std::endl;
 
@@ -88,7 +92,41 @@ int main() {
         std::cout << "ptr_st3.get(): " << ptr_st3.get() << std::endl;
         std::cout << "ptr_st3.use_count(): " << ptr_st3.use_count() << std::endl;
 
+        shared_function(ptr_st3);
+
+        std::cout << "ptr_st3.get(): " << ptr_st3.get() << std::endl;
+        std::cout << "ptr_st3.use_count(): " << ptr_st3.use_count() << std::endl;
+    }
+
+    std::cout << "=== weak_ptr =============================================" << std::endl;
+    {
+        std::cout << "weak_function" << std::endl;
+        std::shared_ptr<Test> ptr1 = std::make_shared<Test>(99);
+        std::cout << "ptr1: " << ptr1.get() << " -> use_count:" << ptr1.use_count() << std::endl;
+
+        weak_function(ptr1);
+
     }
 
     return 0;
+}
+
+void shared_function(const std::shared_ptr<Test> ptr) {
+    using namespace std;
+
+    cout << "Inside shared_function" << endl;
+    cout << "ptr.get(): " << ptr.get() << endl;
+    cout << "ptr.use_count(): " << ptr.use_count() << endl;
+
+    cout << "Leaving shared_function" << endl;
+}
+
+void weak_function(const std::weak_ptr<Test> ptr) {
+    using namespace std;
+
+    cout << "Inside weak_function" << endl;
+    cout << "weakPtr: use_count: " << ptr.use_count() << endl;
+
+
+    cout << "Leaving weak_function" << endl;
 }
