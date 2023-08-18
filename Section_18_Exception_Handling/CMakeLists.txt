@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26)
-project(18_Exception_Handling)
+project(Section_18_Exception_Handling)
 
 set(CMAKE_CXX_STANDARD 17)
 
