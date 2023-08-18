@@ -159,9 +159,11 @@ unwinding the stack
 - If the stack is unwound back to main and no catch handler handles the exception, the program terminates
 
 ## User Defined Exceptions
+
 We can create exception classes and throw instances of those classes.
 
 Best practices:
+
 - throw an object, not a primitive type
 - throw an object by value
 - catch an object by reverence (or const reference)
@@ -173,8 +175,8 @@ class DivideByZeroExeception {
 
 class NegativeValueException {};
 ```
-We can provide constructors, attributes and methods for these classes
 
+We can provide constructors, attributes and methods for these classes
 
 ```c++
 double calculate_mpg(int miles, int gallons) {
@@ -199,10 +201,61 @@ std::cout << "Bye" << std::endl;
 ```
 
 ## Class-Level Exceptions
+
 Exceptions can also be thrown from within a class:
+
 - Method: these work the same way as the do for normal functions
-- Constructor: Constructors may fail; constructor do not return any value; throw an exception in the constructor if you cannot initialize an object
+- Constructor: Constructors may fail; constructor do not return any value; throw an exception in the constructor if you
+  cannot initialize an object
 - Destructor: Do **NOT** exceptions from a Destructor
+
+## The C++ Standard Library Exception Hierarchy
+
+C++ provides a class hierarchy of exception classes.
+
+- Header `<exception>`
+- `std::exception` is the base class
+- All subclases implement a `what()` virtual function, that returns a *C-style* string with a description of the
+  exception that occurred.
+  ```c++
+  virtual const char *what() const noexcept;
+  ```
+- We can create our own user-defined exception subclasses.
+
+### Standard Exception Hierarchy
+
+```mermaid
+classDiagram
+    exception <|-- bad_exception
+    exception <|-- bad_typeid
+    exception <|-- bad_alloc
+    exception <|-- bad_cast
+    exception <|-- runtime_error
+    exception <|-- logic_error
+    exception <|-- bad_optional_access
+    exception <|-- bad_variant_access
+    bad_alloc <|-- bad_array_new_length
+    bad_alloc <|-- bad_array_length
+    logic_error <|-- overflow_error
+    logic_error <|-- underflow_error
+    logic_error <|-- range_error
+    logic_error <|-- regex_error
+    logic_error <|-- system_error
+    system_error <|-- ios_base_failure
+    system_error <|-- filesystem_error
+    runtime_error <|-- domain_error
+    runtime_error <|-- out_of_range
+    runtime_error <|-- length_error
+    runtime_error <|-- invalid_argument
+    runtime_error <|-- future_error
+    bad_cast <|-- bad_any_cast
+    bad_cast <|-- bad_weak_ptr
+    bad_cast <|-- bad_function_call
+```
+
+> [!NOTE]
+> The `noexcept` keyword specifies that a method, constructor, etc, will not throw an exception. So you should not throw
+> an exception on them  
 
 
 
