@@ -113,6 +113,7 @@ Simple smart pointer - Very Efficient.
 ```
 - `p1.get()` returns a pointer to the object in the heap
 - `p1.reset()` set the pointer to nullptr and the memory it points to is released
+- `p1.reset(some_pointer)`, deletes the previous object and assigns a new pointing to where `some_pointer` points.
 
 **User defined classes**
 ```c++
