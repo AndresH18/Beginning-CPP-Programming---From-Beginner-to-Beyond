@@ -30,7 +30,7 @@ By including these *headers* we'll get access to many classes:
 
 | Object | Description                                                                                                                    | 
 |:-------|:-------------------------------------------------------------------------------------------------------------------------------|
-| `cin`  | Standard input stream - by default 'connected' to the standard input devide (keyboard). <br/> Instance of `istream`            |
+| `cin`  | Standard input stream - by default 'connected' to the standard input device (keyboard). <br/> Instance of `istream`            |
 | `cout` | Standard output stream - by default 'connected' to the standard output device (console). <br/>Instance of `ostream`            |
 | `cerr` | Standard error stream - by default 'connected' to the standard error device (console).<br/>Instance of `ostream`*(unbuffered)* |
 | `clog` | Standard log stream - by default 'connected' to the standard log device (console). <br/>Instance of `ostream`*(unbuffered)*    |
@@ -686,4 +686,5 @@ else
 These differences are due to the compilation process used by the IDE.
 
 - Visual Studio compiles 'file.txt' with the program into the output directory.
-- CLion compiles the program to the output directory, which is inside the project directory, but doesn't include 'file.txt'.
+- CLion compiles the program to the output directory, which is inside the project directory, but doesn't include '
+  file.txt'.
