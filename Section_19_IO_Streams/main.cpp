@@ -1,7 +1,13 @@
 #include <iostream>
+#include <iomanip>
 
 int main() {
+    double num{1234.5678};
+    std::string hello{"Hello"};
     std::cout << "Hello, World!" << std::endl;
-//    std::unique_ptr<int> ptr = std::make_unique<int>(1); // if using visual studio compiler, <memory> header is not needed.
+    std::cout << std::setfill('*') << std::setw(10) << num
+              << std::setfill('-') << std::setw(10) << std::right << hello
+              << std::setw(15) << std::right << hello
+              << std::endl;
     return 0;
 }
