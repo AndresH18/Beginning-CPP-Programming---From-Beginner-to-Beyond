@@ -265,9 +265,135 @@ for (auto it = vec.begin(); it != vec.end(); it++) {
 // 1 2 3
 ```
 
+**Iterators - std::set**
 
+```c++
+std::set<char> suits {'C', 'H', 'S', 'D'};
 
+auto it = suits.begin();
 
+while (it != suits.end()) {
+    std::cout << *it << " ";
+    ++i;
+}
+// C H S D
+```
+
+### Reverse Iterators
+
+- Work in reverse
+- Las element is the first and the first is the last
+- `++` moves backwards, and `--` moves forwards
+
+```c++
+std::vector<int> vec {1, 2, 3};
+std::vector<int>::reverse_iterator it = vec.begin();
+while(it != vec.end()) {
+    std::cout << *it << " ";
+    ++i;
+}
+// 3 2 1 
+```
+
+## Algorithms
+
+- STL algorithms work on sequences of container elements provided to them by an iterator.
+- STL has many common and useful algorithms
+- Too many to describe in this section
+    - https://en.cppreference.com/w/cpp/algorithm
+- Many algorithms require extra information in order to do their work
+    - Functors (function objects)
+    - Function pointers
+    - Lambda expressions `C++`
+
+```c++
+#include <algorithm>
+```
+
+- Different containers support different types of iterators
+    - Determines the types of algorithms supported
+- All STL algorithms expect iterators as arguments
+    - Determines the sequence obtained from the container
+
+### Iterator Invalidation
+
+- Iterators point to container elements
+- It's possible iterators become invalid during processing
+
+> Suppose we are iterating over a vector of 10 elements, and we clear() the vector while iterating. This would cause
+> undefined behaviour. Our iterators would be pointing to invalid locations.
+
+### Algorithm - `find`
+
+The `find` algorithm tries to locate the first occurrence of an element in a container. There are lots of variations.
+Returns an iterator pointing to the located element or `end()`.
+
+```c++
+std::vector<int> vec {1, 2, 3};
+
+auto loc = std::find(vec.begin(), vec.end(), 3);
+
+if (loc != vec.end())
+    std::cout << *loc << std::endl; // 3
+```
+
+**`find` needs to be able to compare objects, `operator==` is used and must be provided by the class**
+```c++
+std:.vector<Player> team {/* . . . */};
+Player p {"Hero", 100, 20};
+
+auto loc = std::find(team.begin(), team.end(), p);
+
+if (loc != vec.end())
+    std::cout << *loc << std::endl;
+```
+
+### Algorithms - `for_each`
+- Applies a function to each element in the iterator sequence.
+- Functions must be provided to the algorithm as:
+  - Functor(function object)
+  - Function pointer
+  - Lambda expression (C++)
+
+**Functors**
+```c++
+struct Square_Functor {
+    void operator() (int x) {// overload () operator
+        std::cout << x * x << " ";
+    }
+};
+
+Square_Functor square;  
+std::vector<int> vec {1, 2, 3, 4};
+
+std::for_each(vec.begin(), vec.end(), square);
+// 1 4 9 16
+```
+**Function Pointer**
+```c++
+void square(int x) {
+    std::cout << x * x << " ";
+}
+
+std::vector<int> vec {1, 2, 3, 4};
+
+std::for_each(vec.begin(), vec.end(), square);
+// 1 4 9 16
+```
+
+**Lambda Expression**
+```c++
+std::vector<int> vec {1, 2, 3, 4};
+
+std::for_each(vec.begin(), vec.end(), 
+              [](int x) {std::cout << x * x << " ";}
+              )
+// 1 4 9 16
+```
+## Sequence Containers
+
+### Sequence Container - Array
+`std::array` 'C++11'
 
 
 
