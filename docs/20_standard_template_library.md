@@ -338,6 +338,7 @@ if (loc != vec.end())
 ```
 
 **`find` needs to be able to compare objects, `operator==` is used and must be provided by the class**
+
 ```c++
 std:.vector<Player> team {/* . . . */};
 Player p {"Hero", 100, 20};
@@ -349,13 +350,15 @@ if (loc != vec.end())
 ```
 
 ### Algorithms - `for_each`
+
 - Applies a function to each element in the iterator sequence.
 - Functions must be provided to the algorithm as:
-  - Functor(function object)
-  - Function pointer
-  - Lambda expression (C++)
+    - Functor(function object)
+    - Function pointer
+    - Lambda expression (C++)
 
 **Functors**
+
 ```c++
 struct Square_Functor {
     void operator() (int x) {// overload () operator
@@ -369,7 +372,9 @@ std::vector<int> vec {1, 2, 3, 4};
 std::for_each(vec.begin(), vec.end(), square);
 // 1 4 9 16
 ```
+
 **Function Pointer**
+
 ```c++
 void square(int x) {
     std::cout << x * x << " ";
@@ -382,6 +387,7 @@ std::for_each(vec.begin(), vec.end(), square);
 ```
 
 **Lambda Expression**
+
 ```c++
 std::vector<int> vec {1, 2, 3, 4};
 
@@ -390,10 +396,302 @@ std::for_each(vec.begin(), vec.end(),
               )
 // 1 4 9 16
 ```
+
 ## Sequence Containers
 
-### Sequence Container - Array
-`std::array` 'C++11'
+### Sequence Container - Array (C++)
+
+`std::array`
+
+`#include <array>`
+
+- Fixed size. Size must be known at compile time.
+- Direct element access
+- Provides access to the underlying raw array
+- Use instead of raw arrays when possible
+- All iterators are available and do not invalidate
+
+```c++
+#include <array>
+
+// in C++11, we need to use double initialization list.
+//std::array<int, 5> arr1 { {1, 2, 3, 4, 5} };
+// in C++14+ we only need one initialization list
+std::array<int, 5> arr1 {1, 2, 3, 4, 5};
+
+std::array<std::string, 3> stoogers {
+    std::string{"Larry"},
+    "Moe",
+    std::string{"Curly"}
+};
+
+arr1 = {2, 4, 6, 8, 10};
+```
+**Common methods**
+```c++
+std::array<int, 5> arr {1, 2, 3, 4, 5};
+
+std::cout << arr.size();    // 5
+
+std::cout << arr.at(0);     // 1
+std::cout << arr[1];        // 2
+
+std::cout << arr.front();   // 1
+std::cout << arr.back();    // 5
+
+std::cout << arr.empty();   // 0 (false)
+std::cout << arr.max_size();// 5
+
+std::array<int, 5> arr1 {10, 20, 30, 40, 50};
+arr.swap(arr1);             // swap the 2 arrays
+
+int* data = arr.data();     // get raw array address
+```
+
+
+### Sequence Container - Vector
+`#include <deque>` & `std::vector<T>`
+- Dynamic size
+  - Handled automatically
+  - Can expand and contract as needed
+  - Elements are stored in contiguous memory as an array
+- Direct element access (constant time)
+- Rapid insertion and deletion at the back (constant time)
+- Insertion or removal of elements (linear time)
+- All iterators are available and may *invalidate*
+
+```c++
+#include <vector>
+
+std::vector<int> vec {1, 2, 3};
+
+vec.front();    // 1 - first element
+vec.back();     // 3 - last element
+
+vec.push_back(4); // add element to the end of vector
+```
+```c++
+std::vector<int> vec {1, 2, 3, 4, 5};
+std::vector<int> vec1 (10, 100);    // ten 100s
+
+std::vecto<std::string> stooges {
+    std::string {"Larry"},
+    "Moe",
+    std::string {"curly"}
+};
+vec1 = {2, 4, 6, 8, 10};
+```
+
+```c++
+std::vector<int> vec {1, 2, 3, 4, 5};
+
+std::cout << vec.size();    // 5
+std::cout << vec.capacity();// 5
+std::cout << vec.max_size();// a very large number
+
+std::cout << vec.at(0);     // 1 
+std::cout << vec[1];        // 2 
+
+std::cout << vec.front();   // 1
+std::cout << vec.back();    // 5
+
+std::vector<Person> vec1;
+Person p1 {"Andres", 23};
+
+vec1.push_back(p1);     // add p1 to the back
+vec1.pop_back();        // remove p1 from the back
+
+vec.push_back(Person{"David", 22}); // create object and pass it
+
+vec.emplace_back("David", 22); // create object in place using move semantics - pass object constructor parameters
+```
+```c++
+std:.vector<int> vec1 {1, 2, 3, 4, 5};
+std:.vector<int> vec1 {10, 20, 30, 40, 50};
+
+std::cout << vec1.empty();  //0 (false)
+vec1.swap(vec2);        // swaps the 2 vectors
+
+std::sort(vec1.begin(), vec1.end());
+
+auto it = std::find(vec1.begin(), vec1.end(), 3);
+vec1.insert(it, 10);    // 1, 2, 10  , 3, 4, 5
+
+it = std::find(vec1.begin(), vec1.end(), 4);
+vec1::insert(it, vec2.begin(), vec2.end());
+    // 1, 2, 10, 3, 10, 20, 30, 40, 50, 4, 5
+```
+
+### Sequence Containers - Deque
+`#include <deque>` & `std::deque<T>`
+
+- Dynamic Size
+  - Handled automatically
+  - Can expand and contract as needed
+  - Elements are **NOT** stored in contiguous memory
+- Direct element access (constant time)
+- Rapid insertion and deletion at the front **and** back (constant time)
+- Insertion or removal of elements (linear time)
+- All iterators available and may invalidate
+
+```c++
+std::deque<int> d{1, 2, 3, 4, 5};
+std::deque<int> d1(10,100); // ten 100s
+
+std::deque<std::string> stooges {
+    std:.string{"Larry"},
+    "Moe",
+    std::string("Curly")
+};
+
+d = {2, 4, 6, 8, 10};
+d.front();      // 1
+d.back();      // 10
+d.push_back(12);    // 2, 4, 6, 8, 10, 12
+d.push_front(1);    // 1, 2, 4, 6, 8, 10, 12
+
+d = {1, 2, 3, 4, 5};
+
+std::cout << d.size();  // 5
+std::cout << d.max_size();  // a very large number
+
+std::cout << d.at(0);   // 1
+std::cout << d[1];   // 2
+```
+```c++
+Person p1 {"Andres", 23};
+std::deque<Person> d;
+
+d.push_back(p1);    // add p1 to the back
+d.pop_back();       // remove p1 from the back
+
+d.push_front(Person{"David", 20}); // create and insert
+d.pop_front();      // remove element from the front
+
+d.emplace_back("David", 20);    // create at back
+d.emplace_front("Andres", 23);  // create at front
+```
+
+### Sequence Containers - List & Forward List
+[`std::list<T>`](#list) & [`std::forward_list<T>`](#forward-list)
+- Sequence containers
+- Non-contiguous memory
+- No direct access to elements
+- Very efficient for inserting and deleting elements once element is found
+
+#### List
+`#include <list>` & `std::list<T>`
+- Dynamic size
+  - List of elements
+  - `list` is bidirectional (doubly-linked)
+- Direct element access is **not** provided
+- Rapid insertion and deletion of elements anywhere in the container (constant time) _after element is found_
+- All iterators available and **invalidate** when corresponding element is deleted
+
+```c++
+std::list<int> l{1, 2, 3, 4, 5};
+std::list<int> l1(10,100); // ten 100s
+
+std::list<std::string> stooges {
+    std:.string{"Larry"},
+    "Moe",
+    std::string("Curly")
+};
+
+l = {2, 4, 6, 8, 10};
+
+std::cout << l.size();  // 5
+std::cout << l.max_size(); // a very large number
+std::cout << l.front(); // 1
+std::cout << l.back();  // 10
+```
+```c++
+Person p1 {"Andres", 23};
+std::list<Person> l;
+
+l.push_back(p1);    // add p1 to the back
+l.pop_back();       // remove p1 from the back
+
+l.push_front(Person{"David", 20}); // create and insert
+l.pop_front();      // remove element from the front
+
+l.emplace_back("David", 20);    // create at back
+l.emplace_front("Andres", 23);  // create at front
+```
+
+```c++
+std::list<int> l {1, 2, 3, 4, 5};
+auto it = std::find(l.begin(), l.end(), 3);
+
+l.insert(it, 10);   // 1 2 10 3 4 5
+
+l.erase(it);        // erase the 3, 1 2 10 4 5
+
+l.resize(2);        // 1 2
+
+l.resize(5);        // 1 2 0 0 0
+```
+**Traversing the List**
+```c++
+std::list<int> l {1, 2, 3, 4, 5};
+auto it = std::find(l.begin(), l.end(), 3);
+
+std:.cout << *it;   // 3
+it++;
+std::cout << *it;   // 4
+it--;
+std::cout << *it;   // 3
+```
+
+#### Forward List
+`#include <forward_list>` & `std::forward_list`
+
+- Dynamic size
+  - List of elements
+  - `forward_list` is uni-directional (singly-linked)
+  - Less overhead than [`std::list`](#list)
+- Direct element access is **NOT** provided
+- Rapid insertion and deletion of elements anywhere in the container (constant time) _after the element is found_
+- Reverse iterators are **NOT** available. Iterators invalidate when corresponding element is deleted.
+
+```c++
+std::forward_list<int> l {1, 2, 3, 4, 5};
+
+l = {2, 4, 6, 8, 10};
+
+//std::cout << l.size();  // NOT AVAILABLE
+std::cout << l.max_size(); // a very large number
+std::cout << l.front(); // 1
+//std::cout << l.back();  // NOT AVAILABLE
+```
+
+```c++
+Person p1 {"Andres", 23};
+std::forward_list<Person> l;
+
+l.push_front(p1);   // add p1 to the front
+l.pop_front();      // remove p1 from the front
+
+l.emplace_front("Andres", 23);  // create at front
+```
+
+```c++
+std::forward_list<int> l {1, 2, 3, 4, 5};
+auto it = std::find(l.begin(), l.end(), 3);
+
+l.insert_after(it, 10);     // 1 2 3 10 4 5
+l.emplace_after(it, 100);   // 1 2 3 100 10 4 5
+
+l.erase_after(it);  // erases the 100 - 1 2 3 10 4 5
+
+l.resize(2);        // 1 2
+
+l.resize(5);        // 1 2 0 0 0
+```
+
+## Associative Containers - Set
+
+
 
 
 
