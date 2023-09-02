@@ -427,7 +427,9 @@ std::array<std::string, 3> stoogers {
 
 arr1 = {2, 4, 6, 8, 10};
 ```
+
 **Common methods**
+
 ```c++
 std::array<int, 5> arr {1, 2, 3, 4, 5};
 
@@ -448,13 +450,14 @@ arr.swap(arr1);             // swap the 2 arrays
 int* data = arr.data();     // get raw array address
 ```
 
-
 ### Sequence Container - Vector
+
 `#include <deque>` & `std::vector<T>`
+
 - Dynamic size
-  - Handled automatically
-  - Can expand and contract as needed
-  - Elements are stored in contiguous memory as an array
+    - Handled automatically
+    - Can expand and contract as needed
+    - Elements are stored in contiguous memory as an array
 - Direct element access (constant time)
 - Rapid insertion and deletion at the back (constant time)
 - Insertion or removal of elements (linear time)
@@ -470,6 +473,7 @@ vec.back();     // 3 - last element
 
 vec.push_back(4); // add element to the end of vector
 ```
+
 ```c++
 std::vector<int> vec {1, 2, 3, 4, 5};
 std::vector<int> vec1 (10, 100);    // ten 100s
@@ -505,6 +509,7 @@ vec.push_back(Person{"David", 22}); // create object and pass it
 
 vec.emplace_back("David", 22); // create object in place using move semantics - pass object constructor parameters
 ```
+
 ```c++
 std:.vector<int> vec1 {1, 2, 3, 4, 5};
 std:.vector<int> vec1 {10, 20, 30, 40, 50};
@@ -523,12 +528,13 @@ vec1::insert(it, vec2.begin(), vec2.end());
 ```
 
 ### Sequence Containers - Deque
+
 `#include <deque>` & `std::deque<T>`
 
 - Dynamic Size
-  - Handled automatically
-  - Can expand and contract as needed
-  - Elements are **NOT** stored in contiguous memory
+    - Handled automatically
+    - Can expand and contract as needed
+    - Elements are **NOT** stored in contiguous memory
 - Direct element access (constant time)
 - Rapid insertion and deletion at the front **and** back (constant time)
 - Insertion or removal of elements (linear time)
@@ -558,6 +564,7 @@ std::cout << d.max_size();  // a very large number
 std::cout << d.at(0);   // 1
 std::cout << d[1];   // 2
 ```
+
 ```c++
 Person p1 {"Andres", 23};
 std::deque<Person> d;
@@ -573,17 +580,21 @@ d.emplace_front("Andres", 23);  // create at front
 ```
 
 ### Sequence Containers - List & Forward List
+
 [`std::list<T>`](#list) & [`std::forward_list<T>`](#forward-list)
+
 - Sequence containers
 - Non-contiguous memory
 - No direct access to elements
 - Very efficient for inserting and deleting elements once element is found
 
 #### List
+
 `#include <list>` & `std::list<T>`
+
 - Dynamic size
-  - List of elements
-  - `list` is bidirectional (doubly-linked)
+    - List of elements
+    - `list` is bidirectional (doubly-linked)
 - Direct element access is **not** provided
 - Rapid insertion and deletion of elements anywhere in the container (constant time) _after element is found_
 - All iterators available and **invalidate** when corresponding element is deleted
@@ -605,6 +616,7 @@ std::cout << l.max_size(); // a very large number
 std::cout << l.front(); // 1
 std::cout << l.back();  // 10
 ```
+
 ```c++
 Person p1 {"Andres", 23};
 std::list<Person> l;
@@ -631,7 +643,9 @@ l.resize(2);        // 1 2
 
 l.resize(5);        // 1 2 0 0 0
 ```
+
 **Traversing the List**
+
 ```c++
 std::list<int> l {1, 2, 3, 4, 5};
 auto it = std::find(l.begin(), l.end(), 3);
@@ -644,12 +658,13 @@ std::cout << *it;   // 3
 ```
 
 #### Forward List
+
 `#include <forward_list>` & `std::forward_list`
 
 - Dynamic size
-  - List of elements
-  - `forward_list` is uni-directional (singly-linked)
-  - Less overhead than [`std::list`](#list)
+    - List of elements
+    - `forward_list` is uni-directional (singly-linked)
+    - Less overhead than [`std::list`](#list)
 - Direct element access is **NOT** provided
 - Rapid insertion and deletion of elements anywhere in the container (constant time) _after the element is found_
 - Reverse iterators are **NOT** available. Iterators invalidate when corresponding element is deleted.
@@ -700,38 +715,121 @@ l.resize(5);        // 1 2 0 0 0
 
 
 - `std::set`
-  - Similar to a mathematical set
-  - Ordered by key
-  - No duplicate elements
-  - All iterators available and invalidate when corresponding element is deleted
-  - ```c++
-    std::set<int> s {1, 2, 3, 4, 5, 2, 3, 5}; // 1 2 3 4 5
-    s = {2, 4, 6, 8, 10};
+    - Similar to a mathematical set
+    - Ordered by key
+    - No duplicate elements
+    - All iterators available and invalidate when corresponding element is deleted
+    - ```c++
+      std::set<int> s {1, 2, 3, 4, 5, 2, 3, 5}; // 1 2 3 4 5
+      s = {2, 4, 6, 8, 10};
     
-    std::cout << s.size();  // 5
-    std::cout << s.max_size();  // a very large number
+      std::cout << s.size();  // 5
+      std::cout << s.max_size();  // a very large number
     
-    s.insert(6);    // 1 2 3 4 5 6
-    auto result = s.insert(7);    // 1 2 3 4 5 6 7
-    // returns a std::pair<iterator, bool>, 
-    // an iterator to the element just inserted to the duplicate, 
-    // the boolean indicates if the operation was successful
+      s.insert(6);    // 1 2 3 4 5 6
+      auto result = s.insert(7);    // 1 2 3 4 5 6 7
+      // returns a std::pair<iterator, bool>, 
+      // an iterator to the element just inserted to the duplicate, 
+      // the boolean indicates if the operation was successful
     
     
-    s.erase(3); // erase 3 from set - 1 2 4 5 6 7
+      s.erase(3); // erase 3 from set - 1 2 4 5 6 7
     
-    auto it = s.find(5);
-    if (it != s.end())
-      s.erase(it);  // erase 5
-    ```
-  - No concept of front or back
-- `std::unordered_set`
+      auto it = s.find(5);
+      if (it != s.end())
+        s.erase(it);  // erase 5
+
+      // . . .  
+      s = {1, 2, 3, 4, 5};
+      int num = s.count(2); // returns 0 or 1 if element is found in set
+      
+      s.clear();  // remove all items
+      s.empty();  // true or false
+      
+      ```
+    - No concept of front or back
 - `std::multiset`
+    - Sorted by key
+    - Allows duplicate elements
+    - All iterators are available
+    -
+- `std::unordered_set`
+    - Elements are unordered
+    - No duplicate elements allowed
+    - Elements cannot be modified
+        - Must be erased and new element inserted
+    - No reverse iterators are allowed
 - `std::unordered_multiset`
+    - Elements are unordered
+    - Allows duplicate elements
+    - No reverse iterators are allowed
 
+## Associative Containers - Maps
 
+`#include <map>`
 
+- `std::map`
+    - Similar to a dictionary
+    - Elements are stores as _Key_, _Value_ pairs (`std::pair`)
+    - Ordered by key
+    - No duplicate elements (Keys are unique)
+    - Direct element access using the key
+    - All iterators available and invalidate when corresponding element is deleted
+    - ```c++
+      std::map<std::string, int> m1 { 
+        {"Andres", 23},
+        {"David", 22}
+      };
+            
+      std::map<std::string, std::string> m { 
+        {"Bob", "Butcher"},
+        {"Anne", "Baker"},
+        {"George", "Candlestick maker"}
+      };
+      
+      std::cout << m.size();      // 3
+      std::cout << m.max_size();  // a very large number
+      
+      
+      std::pair<std::string, std::string> p1 {"Andres", "Player"};
+      m.insert(p1);
+      m.insert(std::make_pair("David", "Ranger"));
+      m["Frank"] = "Teacher";       // insert
+      m["Frank"] = "Instructor";    // update value
+      m.at("Frank") = "Professor";  // update value
+      // std::map::at will throw an exception if element is not found
+      // std::map::[] will not throw an exception
+      
+      m.erase("Anne");      // erase Anne
+      
+      if (m.find("Bob") != m.end()) // find bob 
+        std::cout << "Found Bob!";
+      
+      auto it = m.find("George");
+      if (it != m.end())
+        m.erase(it);        // erase George
+      
+      int num = m.count("Bob");  // returns 0 or 1 if element is key in set
+      
+      m.clear();        // remove all elements
+      
+      m.empty();        // true or false
+      ```
 
+- `std::multimap`
+  - Ordered by key
+  - Allows duplicate elements
+  - All iterators are available
+- `std::unordered_map`
+  - Elements are unordered
+  - No duplicate elements allowed
+  - No reverse iterators are allowed
+- `std::unordered_multimap`
+  - Elements are unordered
+  - Allows duplicate elements
+  - No reverse iterators are allowed
+
+sd
 
 
 
