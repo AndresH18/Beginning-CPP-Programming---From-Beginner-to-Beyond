@@ -691,6 +691,45 @@ l.resize(5);        // 1 2 0 0 0
 
 ## Associative Containers - Set
 
+`#include <set>`
+
+- Collection of stored objects that allow fast retrieval using a key
+- STL provides Sets and Maps
+- Usually implemented as balanced binary tree or hashsets
+- Most operations are very efficient
+
+
+- `std::set`
+  - Similar to a mathematical set
+  - Ordered by key
+  - No duplicate elements
+  - All iterators available and invalidate when corresponding element is deleted
+  - ```c++
+    std::set<int> s {1, 2, 3, 4, 5, 2, 3, 5}; // 1 2 3 4 5
+    s = {2, 4, 6, 8, 10};
+    
+    std::cout << s.size();  // 5
+    std::cout << s.max_size();  // a very large number
+    
+    s.insert(6);    // 1 2 3 4 5 6
+    auto result = s.insert(7);    // 1 2 3 4 5 6 7
+    // returns a std::pair<iterator, bool>, 
+    // an iterator to the element just inserted to the duplicate, 
+    // the boolean indicates if the operation was successful
+    
+    
+    s.erase(3); // erase 3 from set - 1 2 4 5 6 7
+    
+    auto it = s.find(5);
+    if (it != s.end())
+      s.erase(it);  // erase 5
+    ```
+  - No concept of front or back
+- `std::unordered_set`
+- `std::multiset`
+- `std::unordered_multiset`
+
+
 
 
 
