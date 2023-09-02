@@ -198,6 +198,12 @@ What types of the elements will be stored in the container?
 - Ordered associative containers must be able to compare elements
     - `operator<`, `operator==`, ...
 
+## IMPORTANT NOTE ABOUT CLASSES
+
+All custom classes must implement at least `operator<` and `operator==` in order to
+use [Sequence Containers](#sequence-containers), [Associative Containers](#associative-containers)
+and [Adapters](#stl-adapters)
+
 ## Iterators
 
 - Allows abstracting an arbitrary container as a sequence of elements
@@ -704,7 +710,9 @@ l.resize(2);        // 1 2
 l.resize(5);        // 1 2 0 0 0
 ```
 
-## Associative Containers - Set
+## Associative Containers
+
+### Associative Containers - Set
 
 `#include <set>`
 
@@ -764,7 +772,7 @@ l.resize(5);        // 1 2 0 0 0
     - Allows duplicate elements
     - No reverse iterators are allowed
 
-## Associative Containers - Maps
+### Associative Containers - Maps
 
 `#include <map>`
 
@@ -817,27 +825,105 @@ l.resize(5);        // 1 2 0 0 0
       ```
 
 - `std::multimap`
-  - Ordered by key
-  - Allows duplicate elements
-  - All iterators are available
+    - Ordered by key
+    - Allows duplicate elements
+    - All iterators are available
 - `std::unordered_map`
-  - Elements are unordered
-  - No duplicate elements allowed
-  - No reverse iterators are allowed
+    - Elements are unordered
+    - No duplicate elements allowed
+    - No reverse iterators are allowed
 - `std::unordered_multimap`
-  - Elements are unordered
-  - Allows duplicate elements
-  - No reverse iterators are allowed
+    - Elements are unordered
+    - Allows duplicate elements
+    - No reverse iterators are allowed
 
-sd
+## STL Adapters
 
+### STL Adapter Container - Stack
 
+`#include <stack>` & `std::stack`
 
+- Last-In First-Out (LIFO) data structure
+- Implemented as an adapter over other STL container
+    - Can be implemented as
+      a [vector](#sequence-container---vector), [list](#sequence-containers---list--forward-list), [deque](#sequence-containers---deque)
+- All operations occur on one end of the stack(top)
+- No iterators are supported
 
+#### Stack - Methods
 
+| Method  | Description                                 |
+|---------|---------------------------------------------|
+| `push`  | Insert an element at the top of the stack   |
+| `pop`   | Remove an element from the top of the stack |
+| `top`   | Access the top element of the stack         |
+| `empty` | Is the stack empty?                         |
+| `size`  | Number of elements in the stack             |
 
+#### Stack - Initialization
 
+| Declaration                             | Underlying type                                   |
+|-----------------------------------------|---------------------------------------------------|
+| `std::stack<int> s;`                    | [deque](#sequence-containers---deque)             |
+| `std::stack<int, std::vector<int>> s1;` | [vector](#sequence-container---vector)            |
+| `std::stack<int, std::list<int>> s2;`   | [list](#sequence-containers---list--forward-list) |
+| `std::stack<int, std::deque<int>> s3;`  | [deque](#sequence-containers---deque)             |
 
+### STL Adapter Container - Queue
+
+`#include <queue>` & `std::queue`
+
+- First-In First-Out (FIFO) data structure
+- Implemented as an adapter over other STL container
+    - Can be implemented as a [list](#sequence-containers---list--forward-list) or [deque](#sequence-containers---deque)
+- Elements are pushed to the back and popped from the front
+- No iterators are supported
+
+#### Queue - Methods
+
+| Method  | Description                                   |
+|---------|-----------------------------------------------|
+| `push`  | Insert an element at the top of the queue     |
+| `pop`   | Remove an element from the start of the queue |
+| `front` | Access the element  at the front              |
+| `back`  | Access the element at the back                |
+| `empty` | Is the queue empty?                           |
+| `size`  | Number of elements in the queue               |
+
+#### Stack - Initialization
+
+| Declaration                            | Underlying type                                   |
+|----------------------------------------|---------------------------------------------------|
+| `std::queue<int> s;`                   | [deque](#sequence-containers---deque)             |
+| `std::queue<int, std::list<int>> s2;`  | [list](#sequence-containers---list--forward-list) |
+| `std::stack<int, std::deque<int>> s3;` | [deque](#sequence-containers---deque)             |
+
+### STL Adapter Container - Priority Queue
+
+`#include <queue>` & `std::queue`
+
+- Allows insertions and removal of elements in order from the front of the container
+- Elements are stored internally as a vector by default
+- Elements are inserted in **priority** order (largest value will always be at the front)
+- No iterators are supported
+
+#### Queue - Methods
+
+| Method  | Description                              |
+|---------|------------------------------------------|
+| `push`  | Insert an element into sorted order      |
+| `pop`   | Remove the top element (greatest)        |
+| `top`   | Access the top element (greatest)        |
+| `empty` | Is the priority queue empty?             |
+| `size`  | Number of elements in the priority queue |
+
+#### Stack - Initialization
+
+| Declaration                            | Underlying type                                   |
+|----------------------------------------|---------------------------------------------------|
+| `std::queue<int> s;`                   | [deque](#sequence-containers---deque)             |
+| `std::queue<int, std::list<int>> s2;`  | [list](#sequence-containers---list--forward-list) |
+| `std::stack<int, std::deque<int>> s3;` | [deque](#sequence-containers---deque)             |
 
 
 
