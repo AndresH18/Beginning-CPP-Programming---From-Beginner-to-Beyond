@@ -92,13 +92,13 @@ over unsigned
 - Nameless
     - Since they don't have a name, it's not possible to declare variables with them and there is no type safety
     - ```c++
-  enum {Red, Green, Blue};
+      enum {Red, Green, Blue};
     ```
 - Named
     - We are defining the enumeration as a unique type that can only assume it's enumerated elements.
     - Type safety
     - ```c++ 
-  enum Color {Red, Green, Blue};
+      enum Color {Red, Green, Blue};
     ```
 
 ## Unscoped Enumerations
